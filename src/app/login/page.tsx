@@ -1,12 +1,11 @@
-import { LoginForm } from "@/features/auth/components/login-form";
+import { LoginForm } from "@/features/auth/components/ui/login-form"
 
 export default function LoginPage() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center p-24 bg-gray-50">
-      <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
-        <h1 className="text-2xl font-bold text-center mb-6">Login - Gestão de Carros</h1>
+    <div className="bg-muted flex min-h-svh flex-col items-center justify-center p-6 md:p-10">
+      <div className="w-full max-w-sm md:max-w-4xl">
         <LoginForm />
       </div>
-    </main>
-  );
+    </div>
+  )
 }
