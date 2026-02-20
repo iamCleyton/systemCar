@@ -1,0 +1,20 @@
+{
+  "Login": {
+    "welcome": "Bem-vindo",
+    "subtitle": "Faça login no seu sistema de carros",
+    "emailLabel": "E-mail",
+    "passwordLabel": "Senha",
+    "button": "Entrar",
+    "loading": "Entrando...",
+    "footer": "Não tem uma conta?",
+    "signup": "Cadastre-se",
+    "error": "Credenciais inválidas. Verifique e-mail e senha.",
+    "success": "Login realizado com sucesso!"
+  },
+
+  "Validations": {
+    "email": "E-mail inválido",
+    "passwordMin": "A senha deve ter pelo menos {min} caracteres",
+    "required": "Este campo é obrigatório"
+  }
+}

@@ -6,7 +6,8 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { signIn } from "next-auth/react";
 import Image from "next/image";
-
+import { LanguageToggle } from "@/features/auth/components/language-toggle";
+import { useTranslations } from "next-intl";
 import { cn } from "@/lib/utils";
 import { Button } from "@/features/auth/components/ui/button";
 import { Card, CardContent } from "@/features/auth/components/ui/card";
@@ -17,19 +18,26 @@ import {
   FieldLabel,
 } from "@/features/auth/components/ui/field";
 import { Input } from "@/features/auth/components/ui/input";
+import { toast } from "react-toastify";
 
-// ATENÇÃO: Verifique se este caminho está correto para o seu projeto!
-import { loginSchema, LoginSchema } from "../../schemas/login-schema"; 
+// Importando a função do seu arquivo de schema
+import { createLoginSchema, LoginSchema } from "../../schemas/login-schema";
 
 export function LoginForm({
   className,
   ...props
 }: React.ComponentProps<"div">) {
-  // 1. Instanciamos os hooks de navegação e estado
   const router = useRouter();
   const [globalError, setGlobalError] = useState("");
 
-  // 2. Configuramos o React Hook Form com o Zod
+  // 1. Primeiro carregamos as traduções
+  const t = useTranslations('Login');
+  const tValidations = useTranslations("Validations");
+
+  // 2. Criamos o schema com as traduções ANTES de usar no useForm
+  const loginSchema = createLoginSchema(tValidations);
+
+  // 3. Agora sim, instanciamos o useForm
   const {
     register,
     handleSubmit,
@@ -38,7 +46,6 @@ export function LoginForm({
     resolver: zodResolver(loginSchema),
   });
 
-  // 3. Função de envio que chama o NextAuth
   async function onSubmit(data: LoginSchema) {
     setGlobalError("");
     
@@ -49,83 +56,77 @@ export function LoginForm({
     });
 
     if (result?.error) {
-      setGlobalError("Credenciais inválidas. Verifique e-mail e senha.");
+      // Usando a chave de erro do seu JSON
+      toast.error(t("error"));
+      setGlobalError(t("error"));
     } else {
+      toast.success(t("success") || "Login ok!");
       router.push("/dashboard");
       router.refresh();
     }
   }
 
   return (
-    <div className={cn("flex flex-col gap-6", className)} {...props}>
+    <div className={cn("flex flex-col gap-6 justify-center", className)} {...props}>
+      <div className="flex justify-end items-center absolute gap-2 top-5 right-5">
+        <LanguageToggle />
+      </div>
+
       <Card className="overflow-hidden p-0">
         <CardContent className="grid p-0 md:grid-cols-2">
-          {/* 4. Adicionamos o onSubmit no <form> */}
           <form onSubmit={handleSubmit(onSubmit)} className="p-6 md:p-8">
             <FieldGroup>
               <div className="flex flex-col items-center gap-2 text-center">
-                <h1 className="text-2xl font-bold">Welcome</h1>
+                <h1 className="text-2xl font-bold">{t("welcome")}</h1>
                 <p className="text-muted-foreground text-balance">
-                  Login in your system car
+                  {t("subtitle")}
                 </p>
               </div>
 
-              {/* 5. Aviso de erro global (credenciais inválidas) */}
               {globalError && (
                 <div className="p-3 text-sm text-red-500 bg-red-50 rounded-md text-center border border-red-200">
                   {globalError}
                 </div>
               )}
 
-              {/* CAMPO DE E-MAIL */}
               <Field>
-                <FieldLabel htmlFor="email">Email</FieldLabel>
+                <FieldLabel htmlFor="email">{t("emailLabel")}</FieldLabel>
                 <Input
                   id="email"
                   type="email"
                   placeholder="cleyton@example.com"
-                  {...register("email")} // Conectado ao Form
+                  {...register("email")}
                 />
-                {/* Mensagem de erro do Zod para o e-mail */}
                 {errors.email && <p className="text-red-500 text-xs">{errors.email.message}</p>}
               </Field>
 
-              {/* CAMPO DE SENHA */}
               <Field>
-                <div className="flex items-center">
-                  <FieldLabel htmlFor="password">Password</FieldLabel>
-                </div>
+                <FieldLabel htmlFor="password">{t('passwordLabel')}</FieldLabel>
                 <Input 
                   id="password" 
                   type="password" 
                   placeholder="******" 
-                  className="border-black"
-                  {...register("password")} // Conectado ao Form
+                  {...register("password")}
                 />
-                {/* Mensagem de erro do Zod para a senha */}
                 {errors.password && <p className="text-red-500 text-xs">{errors.password.message}</p>}
               </Field>
 
-              {/* BOTÃO DE SUBMIT */}
               <Field>
-                <Button type="submit" disabled={isSubmitting}>
-                  {/* Reativo: Troca o texto automaticamente */}
-                  {isSubmitting ? "Entrando..." : "Login"}
+                <Button type="submit" disabled={isSubmitting} className="cursor-pointer">
+                  {isSubmitting ? t("loading") : t("button")}
                 </Button>
               </Field>
 
               <FieldDescription className="text-center">
-                Don&apos;t have an account? <a href="#">Sign up</a>
+                {t("footer")} <a href="#">{t("signup")}</a>
               </FieldDescription>
             </FieldGroup>
           </form>
 
-          {/* LADO DA IMAGEM */}
           <div className="bg-muted relative hidden md:block">
-            {/* Usando o next/image corretamente com a prop 'fill' para preencher a div pai */}
             <Image
               src="/login_car.png"
-              alt="Imagem de um carro de luxo"
+              alt="Car"
               fill
               className="object-cover dark:brightness-[0.2] dark:grayscale"
             />

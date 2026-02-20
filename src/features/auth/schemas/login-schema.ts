@@ -2,14 +2,16 @@ import { z } from "zod";
 
 const emailRegex = /^[a-z0-9.+-]+@[a-z0-9.-]+\.[a-z]{2,}$/;
 
-export const loginSchema = z.object({
+// Transformamos o schema em uma função que recebe 't' (a função de tradução)
+export const createLoginSchema = (t: any) => z.object({
   email: z
     .string()
-    .min(1, "O e-mail é obrigatório") // Equivalente ao @NotBlank
-    .regex(emailRegex, "Formato de e-mail inválido"), // validação customizada
+    .min(1, t("required")) // "required" deve estar no seu JSON
+    .regex(emailRegex, t("email")), // "invalidEmail" deve estar no seu JSON
   password: z
     .string()
-    .min(6, "A senha deve ter no mínimo 6 caracteres"),
+    .min(6, t("passwordMin", { count: 6 })), // Passando o número 6 dinamicamente se desejar
 });
 
-export type LoginSchema = z.infer<typeof loginSchema>;
+// O tipo continua sendo gerado a partir do retorno da função
+export type LoginSchema = z.infer<ReturnType<typeof createLoginSchema>>;
