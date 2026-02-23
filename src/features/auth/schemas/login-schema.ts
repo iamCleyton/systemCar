@@ -10,7 +10,7 @@ export const createLoginSchema = (t: any) => z.object({
     .regex(emailRegex, t("email")), // "invalidEmail" deve estar no seu JSON
   password: z
     .string()
-    .min(6, t("passwordMin", { count: 6 })), // Passando o número 6 dinamicamente se desejar
+    .min(6, t("passwordMin", { min: 6 })), // Passando o número 6 dinamicamente se desejar
 });
 
 // O tipo continua sendo gerado a partir do retorno da função

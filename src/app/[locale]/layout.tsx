@@ -2,10 +2,11 @@ import { NextIntlClientProvider } from 'next-intl';
 import { getMessages } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 import { routing } from '@/i18n/routing';
-
-// 1. IMPORTANTE: Importe o CSS e o Container do Toastify
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'; 
+
+// Importe o seu novo QueryProvider aqui
+import { QueryProvider } from '@/providers/query-provider'; 
 
 export default async function LocaleLayout({
   children,
@@ -26,14 +27,16 @@ export default async function LocaleLayout({
     <html lang={locale}>
       <body className="antialiased">
         <NextIntlClientProvider messages={messages}>
-          {children}
+          {/* Envolva o children aqui para o TanStack Query funcionar em tudo */}
+          <QueryProvider>
+            {children}
+          </QueryProvider>
         </NextIntlClientProvider>
         
-        {/* 2. Coloque o ToastContainer no final do body */}
         <ToastContainer 
           position="bottom-right"
           autoClose={3000}
-          theme="colored" // Você pode mudar para "dark" ou "colored"
+          theme="colored"
         />
       </body>
     </html>

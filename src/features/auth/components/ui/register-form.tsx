@@ -1,17 +1,14 @@
 "use client";
 
-import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { signIn } from "next-auth/react";
 import Image from "next/image";
 import { LanguageToggle } from "@/features/auth/components/language-toggle";
 import { useTranslations } from "next-intl";
 import { cn } from "@/lib/utils";
 import { Button } from "@/features/auth/components/ui/button";
 import { Card, CardContent } from "@/features/auth/components/ui/card";
-import Link from "next/link";
 import {
   Field,
   FieldDescription,
@@ -20,52 +17,58 @@ import {
 } from "@/features/auth/components/ui/field";
 import { Input } from "@/features/auth/components/ui/input";
 import { toast } from "react-toastify";
+import Link from "next/link";
 
-// Importando a função do seu arquivo de schema
-import { createLoginSchema, LoginSchema } from "../../schemas/login-schema";
+import { createRegisterSchema, RegisterSchema } from "../../schemas/register-schema";
 
-export function LoginForm({
-  className,
-  ...props
-}: React.ComponentProps<"div">) {
+import { useMutation } from "@tanstack/react-query";
+
+export function RegisterForm({ className, ...props }: React.ComponentProps<"div">) {
   const router = useRouter();
-  const [globalError, setGlobalError] = useState("");
-
-  // 1. Primeiro carregamos as traduções
-  const t = useTranslations('Login');
+  const t = useTranslations('Register');
   const tValidations = useTranslations("Validations");
 
-  // 2. Criamos o schema com as traduções ANTES de usar no useForm
-  const loginSchema = createLoginSchema(tValidations);
+  const registerSchema = createRegisterSchema(tValidations);
 
-  // 3. Agora sim, instanciamos o useForm
   const {
     register,
     handleSubmit,
-    formState: { errors, isSubmitting },
-  } = useForm<LoginSchema>({
-    resolver: zodResolver(loginSchema),
+    formState: { errors },
+  } = useForm<RegisterSchema>({
+    resolver: zodResolver(registerSchema),
   });
 
-  async function onSubmit(data: LoginSchema) {
-    setGlobalError("");
-    
-    const result = await signIn("credentials", {
-      email: data.email,
-      password: data.password,
-      redirect: false,
-    });
+  // CONFIGURAÇÃO DO TANSTACK QUERY
+  const mutation = useMutation({
+    mutationFn: async (data: RegisterSchema) => {
+      const response = await fetch("/api/auth/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
 
-    if (result?.error) {
-      // Usando a chave de erro do seu JSON
-      toast.error(t("error"));
-      setGlobalError(t("error"));
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || "Erro no registro");
+      }
+      return response.json();
+    },
+    onSuccess: () => {
+      toast.success(t("success"));
+      router.push("/login");
+    },
+    onError: (error: any) => {
+    // Aqui fazemos o "de-para" da tradução
+    if (error.message === "Email already exists") {
+      toast.error(t("emailAlreadyExists"));
     } else {
-      toast.success(t("success") || "Login ok!");
-      router.push("/dashboard");
-      router.refresh();
-    }
-  }
+      toast.error(error.message || t("error"));
+    }},
+  });
+
+  const onSubmit = (data: RegisterSchema) => {
+    mutation.mutate(data);
+  };
 
   return (
     <div className={cn("flex flex-col gap-6 justify-center", className)} {...props}>
@@ -78,17 +81,22 @@ export function LoginForm({
           <form onSubmit={handleSubmit(onSubmit)} className="p-6 md:p-8">
             <FieldGroup>
               <div className="flex flex-col items-center gap-2 text-center">
-                <h1 className="text-2xl font-bold">{t("welcome")}</h1>
+                <h1 className="text-2xl font-bold">{t("title")}</h1>
                 <p className="text-muted-foreground text-balance">
                   {t("subtitle")}
                 </p>
               </div>
 
-              {globalError && (
-                <div className="p-3 text-sm text-red-500 bg-red-50 rounded-md text-center border border-red-200">
-                  {globalError}
-                </div>
-              )}
+              <Field>
+                <FieldLabel htmlFor="name">{t("nameLabel")}</FieldLabel>
+                <Input
+                  id="name"
+                  type="text"
+                  placeholder="Cleyton"
+                  {...register("name")}
+                />
+                {errors.name && <p className="text-red-500 text-xs">{errors.name.message}</p>}
+              </Field>
 
               <Field>
                 <FieldLabel htmlFor="email">{t("emailLabel")}</FieldLabel>
@@ -113,21 +121,32 @@ export function LoginForm({
               </Field>
 
               <Field>
-                <Button type="submit" disabled={isSubmitting} className="cursor-pointer">
-                  {isSubmitting ? t("loading") : t("button")}
+                <FieldLabel htmlFor="confirmPassword">{t('confirmPasswordLabel')}</FieldLabel>
+                <Input 
+                  id="confirmPassword" 
+                  type="password" 
+                  placeholder="******" 
+                  {...register("confirmPassword")}
+                />
+                {errors.confirmPassword && <p className="text-red-500 text-xs">{errors.confirmPassword.message}</p>}
+              </Field>
+
+              <Field>
+                <Button type="submit" disabled={mutation.isPending} className="cursor-pointer">
+                  {mutation.isPending ? t("loading") : t("button")}
                 </Button>
               </Field>
 
               <FieldDescription className="text-center">
-                {t("footer")} <Link href="/login">{t("signup")}</Link>
+                {t("footer")} <Link href="/login" className="underline font-medium">{t("loginLink")}</Link>
               </FieldDescription>
             </FieldGroup>
           </form>
 
           <div className="bg-muted relative hidden md:block">
             <Image
-              src="/login_car.png"
-              alt="Car"
+              src="/login_car.png" 
+              alt="Car Management"
               fill
               className="object-cover dark:brightness-[0.2] dark:grayscale"
             />
