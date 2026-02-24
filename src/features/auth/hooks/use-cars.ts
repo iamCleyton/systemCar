@@ -1,32 +1,60 @@
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+"use client";
 
-// 1. Busca os detalhes do carro (Simulado)
-export function useCar(id: string) {
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { useAxiosAuth } from "@/features/auth/hooks/useAxiosAuth";
+import { Page, Car } from "@/features/auth/types/car"; 
+
+// 1. Hook para buscar a lista de carros (Paginação e Filtros)
+export function useCars(page = 0, size = 10, brand?: string, model?: string, color?: string, year?: number) {
+  const axiosAuth = useAxiosAuth();
+
   return useQuery({
-    queryKey: ["car", id],
-    queryFn: async () => {
-      await new Promise((r) => setTimeout(r, 500)); // Simula delay
-      return { id, modelo: "Civic", marca: "Honda", cor: "Prata", ano: "2024" };
+    queryKey: ["cars", page, size, brand, model, color, year],
+    queryFn: async (): Promise<Page<Car>> => {
+      const response = await axiosAuth.get("/car", {
+        params: { page, size, brand, model, color, year },
+      });
+      return response.data;
     },
-    enabled: !!id,
+    placeholderData: (previousData) => previousData,
   });
 }
 
-// 2. Envia a edição e limpa o cache (Mutation)
+// 2. Hook para buscar APENAS UM carro pelo ID (Usado na página de detalhes)
+export function useCar(id: string) {
+  const axiosAuth = useAxiosAuth();
+
+  return useQuery({
+    queryKey: ["car", id],
+    queryFn: async (): Promise<Car> => {
+      const response = await axiosAuth.get(`/car/${id}`);
+      return response.data;
+    },
+    enabled: !!id, // Só faz a requisição se o ID existir
+  });
+}
+
+
 export function useUpdateCar() {
+  const axiosAuth = useAxiosAuth();
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: async (updatedCar: any) => {
-      console.log("Enviando para o servidor...", updatedCar);
-      await new Promise((r) => setTimeout(r, 800)); // Simula envio
-      return updatedCar;
+    mutationFn: async (carro: any) => {
+      // O id vem do objeto carro, o restante são os campos para atualizar
+      const { id, ...data } = carro;
+      const response = await axiosAuth.patch(`/car/${id}`, data);
+      return response.data;
     },
     onSuccess: () => {
-      // ESTA LINHA É O SEGREDO: Ela força a tabela e a página de detalhes a buscarem dados novos
-      queryClient.invalidateQueries({ queryKey: ["car"] });
-      queryClient.invalidateQueries({ queryKey: ["cars-list"] });
+      // Atualiza a lista de carros automaticamente na tabela
+      queryClient.invalidateQueries({ queryKey: ["cars"] });
       alert("Carro atualizado com sucesso!");
     },
+    onError: (error) => {
+      console.error("Erro ao atualizar carro:", error);
+      alert("Falha ao atualizar o veículo.");
+    }
   });
 }
+

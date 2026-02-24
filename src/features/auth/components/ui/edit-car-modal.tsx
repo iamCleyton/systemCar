@@ -1,28 +1,42 @@
 "use client";
+
 import { useUpdateCar } from "@/features/auth/hooks/use-cars";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger, DialogFooter } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
+import { useState } from "react";
 
-export function EditCarModal({ carro }: { carro: any }) {
+export function EditCarModal({ carro }: { carro: any; mode?: string }) {
+  const [open, setOpen] = useState(false);
   const updateMutation = useUpdateCar();
 
-  const handleSave = (e: React.FormEvent) => {
+  const handleSave = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const formData = new FormData(e.target as HTMLFormElement);
-    const data = Object.fromEntries(formData);
+    const formData = new FormData(e.currentTarget);
     
-    // Dispara a atualização automática
-    updateMutation.mutate({ ...carro, ...data });
+    // Mapeia os dados para os nomes que o seu DTO Java espera
+    const data = {
+      id: carro.id,
+      model: formData.get("model"),
+      brand: formData.get("brand"),
+      color: formData.get("color"),
+      year: Number(formData.get("year")),
+    };
+
+    updateMutation.mutate(data, {
+      onSuccess: () => {
+        setOpen(false);
+        window.location.href = "/dashboard";
+      }
+    });
   };
 
   return (
-    <Dialog>
-      <DialogTrigger asChild>
-        <Button variant="outline" className="bg-white border-blue-600 text-blue-600 hover:bg-blue-50">
-          Editar Veículo
-        </Button>
-      </DialogTrigger>
+    <Dialog open={open} onOpenChange={setOpen}>
+      {/* Se o botão vier de dentro de um dropdown, ele não precisa de DialogTrigger customizado */}
+      <Button variant="outline" onClick={() => setOpen(true)} className="bg-white border-blue-600 text-blue-600 hover:bg-blue-50">
+        Editar Veículo
+      </Button>
 
       <DialogContent className="bg-white">
         <form onSubmit={handleSave}>
@@ -33,19 +47,19 @@ export function EditCarModal({ carro }: { carro: any }) {
           <div className="grid gap-4 py-6">
             <div className="flex flex-col gap-2">
               <label className="text-sm font-bold">Modelo</label>
-              <Input name="modelo" defaultValue={carro?.modelo} />
+              <Input name="model" defaultValue={carro?.model} required />
             </div>
             <div className="flex flex-col gap-2">
               <label className="text-sm font-bold">Marca</label>
-              <Input name="marca" defaultValue={carro?.marca} />
+              <Input name="brand" defaultValue={carro?.brand} required />
             </div>
             <div className="flex flex-col gap-2">
               <label className="text-sm font-bold">Cor</label>
-              <Input name="marca" defaultValue={carro?.cor} />
+              <Input name="color" defaultValue={carro?.color} required />
             </div>
             <div className="flex flex-col gap-2">
               <label className="text-sm font-bold">Ano</label>
-              <Input name="marca" defaultValue={carro?.ano} />
+              <Input name="year" type="number" defaultValue={carro?.year} required />
             </div>
           </div>
 

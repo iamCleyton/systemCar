@@ -1,4 +1,4 @@
-import {User as NextAuthUser} from "next-auth";
+
 
 //o que o spring devolve no login
 export interface SpringLoginResponse {
