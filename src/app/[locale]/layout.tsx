@@ -6,7 +6,7 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'; 
 
 // Importe o seu novo QueryProvider aqui
-import { QueryProvider } from '@/providers/query-provider'; 
+import { AppProviders } from "@/providers/AppProviders"; 
 
 export default async function LocaleLayout({
   children,
@@ -28,9 +28,9 @@ export default async function LocaleLayout({
       <body className="antialiased">
         <NextIntlClientProvider messages={messages}>
           {/* Envolva o children aqui para o TanStack Query funcionar em tudo */}
-          <QueryProvider>
+          <AppProviders>
             {children}
-          </QueryProvider>
+          </AppProviders>
         </NextIntlClientProvider>
         
         <ToastContainer 

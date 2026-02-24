@@ -1,45 +1,127 @@
-import { cn } from "@/lib/utils";
+"use client";
 
-export function InputDemo({ className }: { className?: string }) {
+import { useState } from "react";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+
+// Tipagem dos filtros que o Dashboard espera receber
+interface Filters {
+  brand: string;
+  model: string;
+  color: string;
+  year: number | undefined;
+}
+
+interface InputDemoProps {
+  onFilter: (filters: Filters) => void;
+}
+
+export function InputDemo({ onFilter }: InputDemoProps) {
+  // 1. Estados locais para cada input
+  const [model, setModel] = useState("");
+  const [brand, setBrand] = useState("");
+  const [color, setColor] = useState("");
+  const [year, setYear] = useState<string>("");
+
+  // 2. Ação do botão "Filtrar" (O "Enter")
+  const handleFilter = () => {
+    onFilter({
+      model: model.trim(),
+      brand: brand.trim(),
+      color: color.trim(),
+      year: year ? parseInt(year, 10) : undefined, // Converte o ano para número se existir
+    });
+  };
+
+  // 3. Ação do botão "Limpar"
+  const handleClear = () => {
+    // Zera os campos na tela
+    setModel("");
+    setBrand("");
+    setColor("");
+    setYear("");
+    
+    // Dispara a busca com os filtros vazios (traz todos os carros de volta)
+    onFilter({
+      model: "",
+      brand: "",
+      color: "",
+      year: undefined,
+    });
+  };
+
+  // Permite filtrar ao apertar a tecla "Enter" dentro de qualquer input
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      handleFilter();
+    }
+  };
+
   return (
-    <div className={cn(
-      // Removido h-30 (altura fixa). Adicionado py-6 (espaçamento dinâmico).
-      // flex-wrap permite que os itens "caiam" para a linha de baixo.
-      "flex flex-col md:flex-row items-center justify-center rounded-lg w-[90%] bg-white py-6 px-4 shadow-[-10px_0_0_0_#003cff]", 
-      className
-    )}>   
-      {/* O form agora quebra em múltiplas linhas (flex-wrap) e centraliza no mobile */}
-      <form className="flex flex-row flex-wrap gap-6 md:gap-10 items-end justify-center w-full">
-        
-        {/* Container genérico para os campos de Input */}
-        {[
-          { label: "Modelo", placeholder: "Ex: Tesla" },
-          { label: "Marca", placeholder: "Ex: Porsche" },
-          { label: "Cor", placeholder: "Ex: Preto" },
-          { label: "Ano", placeholder: "Ex: 2024" }
-        ].map((item) => (
-          <div key={item.label} className="flex flex-col gap-2 w-full sm:w-auto">
-            <label className="text-sm font-medium leading-none">
-              {item.label}
-            </label>
-            <input 
-              className="border-input border bg-transparent px-3 py-1 rounded-md text-foreground placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] outline-none transition-all w-full sm:w-[180px]" 
-              placeholder={item.placeholder}
-            />
-          </div>
-        ))}
+    <div className="bg-white p-6 rounded-xl shadow-md w-[90%] border-l-8 border-l-[#003cff] flex flex-col md:flex-row gap-4 items-end">
+      
+      {/* Input de Modelo */}
+      <div className="flex-1 flex flex-col gap-2 w-full">
+        <label className="text-sm font-bold text-gray-700">Modelo</label>
+        <Input 
+          placeholder="Ex: Tesla" 
+          value={model} 
+          onChange={(e) => setModel(e.target.value)} 
+          onKeyDown={handleKeyDown}
+        />
+      </div>
 
-        {/* Botões - Centralizados no mobile e alinhados no desktop */}
-        <div className="flex gap-3 w-full sm:w-auto justify-center sm:justify-start pt-2">
-          <button type="button" className="bg-[#003cffd7] text-white px-6 py-2 rounded-md hover:bg-blue-700 transition-colors cursor-pointer w-full sm:w-auto whitespace-nowrap">
-            Filtrar
-          </button>
-          <button type="reset" className="bg-[#003cffd7] text-white px-6 py-2 rounded-md hover:bg-blue-700 transition-colors cursor-pointer w-full sm:w-auto whitespace-nowrap">
-            Limpar
-          </button>
-        </div>
+      {/* Input de Marca */}
+      <div className="flex-1 flex flex-col gap-2 w-full">
+        <label className="text-sm font-bold text-gray-700">Marca</label>
+        <Input 
+          placeholder="Ex: Porsche" 
+          value={brand} 
+          onChange={(e) => setBrand(e.target.value)} 
+          onKeyDown={handleKeyDown}
+        />
+      </div>
 
-      </form>
+      {/* Input de Cor */}
+      <div className="flex-1 flex flex-col gap-2 w-full">
+        <label className="text-sm font-bold text-gray-700">Cor</label>
+        <Input 
+          placeholder="Ex: Preto" 
+          value={color} 
+          onChange={(e) => setColor(e.target.value)} 
+          onKeyDown={handleKeyDown}
+        />
+      </div>
+
+      {/* Input de Ano */}
+      <div className="flex-1 flex flex-col gap-2 w-full">
+        <label className="text-sm font-bold text-gray-700">Ano</label>
+        <Input 
+          type="number" 
+          placeholder="Ex: 2024" 
+          value={year} 
+          onChange={(e) => setYear(e.target.value)} 
+          onKeyDown={handleKeyDown}
+        />
+      </div>
+
+      {/* Botões */}
+      <div className="flex gap-2 w-full md:w-auto mt-4 md:mt-0">
+        <Button 
+          onClick={handleFilter} 
+          className="bg-[#003cff] hover:bg-blue-700 text-white px-6 w-full md:w-auto"
+        >
+          Filtrar
+        </Button>
+        <Button 
+          onClick={handleClear} 
+          variant="outline" 
+          className="border-[#003cff] text-[#003cff] hover:bg-blue-50 px-6 w-full md:w-auto"
+        >
+          Limpar
+        </Button>
+      </div>
+
     </div>
   );
 }
