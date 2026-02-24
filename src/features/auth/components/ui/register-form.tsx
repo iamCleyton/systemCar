@@ -7,15 +7,15 @@ import Image from "next/image";
 import { LanguageToggle } from "@/features/auth/components/language-toggle";
 import { useTranslations } from "next-intl";
 import { cn } from "@/lib/utils";
-import { Button } from "@/features/auth/components/ui/button";
-import { Card, CardContent } from "@/features/auth/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
 import {
   Field,
   FieldDescription,
   FieldGroup,
   FieldLabel,
-} from "@/features/auth/components/ui/field";
-import { Input } from "@/features/auth/components/ui/input";
+} from "@/components/ui/field";
+import { Input } from "@/components/ui/input";
 import { toast } from "react-toastify";
 import Link from "next/link";
 

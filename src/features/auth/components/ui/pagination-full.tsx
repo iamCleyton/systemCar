@@ -11,7 +11,8 @@ import {
 export function PaginationDemo() {
   return (
     <Pagination>
-      <PaginationContent className=" ml-250 p-10">
+      {/* REMOVIDO: ml-250 e p-10 que estavam quebrando o layout */}
+      <PaginationContent> 
         <PaginationItem>
           <PaginationPrevious href="#" />
         </PaginationItem>

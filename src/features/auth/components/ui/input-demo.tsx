@@ -1,73 +1,45 @@
-import { cn } from "@/lib/utils"; // Importe o utilitário que você já tem no projeto
+import { cn } from "@/lib/utils";
 
-// Adicionamos a prop className para o TypeScript parar de reclamar
 export function InputDemo({ className }: { className?: string }) {
   return (
-    <>
-      {/* Usamos cn() para manter suas classes fixas e aceitar as que vierem de fora (como mb-10) */}
-      <div className={cn(
-        "flex items-center justify-center rounded-lg w-[90%] bg-white h-30 shadow-[-10px_0_0_0_#003cff]", 
-        className
-      )}>   
-        <form className="flex flex-row gap-10 items-center justify-center">
-          
-          {/* Modelo */}
-          <div className="flex-row flex gap-2 items-center justify-center">
-            <label className="flex items-center gap-2 text-sm leading-none font-medium select-none mb-2">
-              <p>Modelo</p>
+    <div className={cn(
+      // Removido h-30 (altura fixa). Adicionado py-6 (espaçamento dinâmico).
+      // flex-wrap permite que os itens "caiam" para a linha de baixo.
+      "flex flex-col md:flex-row items-center justify-center rounded-lg w-[90%] bg-white py-6 px-4 shadow-[-10px_0_0_0_#003cff]", 
+      className
+    )}>   
+      {/* O form agora quebra em múltiplas linhas (flex-wrap) e centraliza no mobile */}
+      <form className="flex flex-row flex-wrap gap-6 md:gap-10 items-end justify-center w-full">
+        
+        {/* Container genérico para os campos de Input */}
+        {[
+          { label: "Modelo", placeholder: "Ex: Tesla" },
+          { label: "Marca", placeholder: "Ex: Porsche" },
+          { label: "Cor", placeholder: "Ex: Preto" },
+          { label: "Ano", placeholder: "Ex: 2024" }
+        ].map((item) => (
+          <div key={item.label} className="flex flex-col gap-2 w-full sm:w-auto">
+            <label className="text-sm font-medium leading-none">
+              {item.label}
             </label>
             <input 
-              className="border-input border bg-transparent px-3 py-1 rounded-md text-foreground placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] outline-none transition-all w-[200px]" 
-              placeholder="Digite aqui..."
+              className="border-input border bg-transparent px-3 py-1 rounded-md text-foreground placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] outline-none transition-all w-full sm:w-[180px]" 
+              placeholder={item.placeholder}
             />
           </div>
+        ))}
 
-          {/* Marca */}
-          <div className="flex-row flex gap-2 items-center justify-center">
-            <label className="flex items-center gap-2 text-sm leading-none font-medium select-none mb-2">
-              <p>Marca</p>
-            </label>
-            <input 
-              className="border-input border bg-transparent px-3 py-1 rounded-md text-foreground placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] outline-none transition-all w-[200px]" 
-              placeholder="Digite aqui..."
-            />
-          </div>
+        {/* Botões - Centralizados no mobile e alinhados no desktop */}
+        <div className="flex gap-3 w-full sm:w-auto justify-center sm:justify-start pt-2">
+          <button type="button" className="bg-[#003cffd7] text-white px-6 py-2 rounded-md hover:bg-blue-700 transition-colors cursor-pointer w-full sm:w-auto whitespace-nowrap">
+            Filtrar
+          </button>
+          <button type="reset" className="bg-[#003cffd7] text-white px-6 py-2 rounded-md hover:bg-blue-700 transition-colors cursor-pointer w-full sm:w-auto whitespace-nowrap">
+            Limpar
+          </button>
+        </div>
 
-          {/* Cor */}
-          <div className="flex-row flex gap-2 items-center justify-center">
-            <label className="flex items-center gap-2 text-sm leading-none font-medium select-none mb-2">
-              <p>Cor</p>
-            </label>
-            <input 
-              className="border-input border bg-transparent px-3 py-1 rounded-md text-foreground placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] outline-none transition-all w-[200px]" 
-              placeholder="Digite aqui..."
-            />
-          </div>
-
-          {/* Ano */}
-          <div className="flex-row flex gap-2 items-center justify-center">
-            <label className="flex items-center gap-2 text-sm leading-none font-medium select-none mb-2">
-              <p>Ano</p>
-            </label>
-            <input 
-              className="border-input border bg-transparent px-3 py-1 rounded-md text-foreground placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] outline-none transition-all w-[200px]" 
-              placeholder="Digite aqui..."
-            />
-          </div>
-
-          {/* Botões */}
-          <div className="flex gap-3">
-            <button type="button" className="bg-[#003cffd7] text-white px-4 py-2 rounded-md hover:bg-blue-700 transition-colors cursor-pointer">
-              Filtrar
-            </button>
-
-            <button type="reset" className="bg-[#003cffd7] text-white px-4 py-2 rounded-md hover:bg-blue-700 transition-colors cursor-pointer">
-              Limpar
-            </button>
-          </div>
-
-        </form>
-      </div>
-    </>
+      </form>
+    </div>
   );
 }

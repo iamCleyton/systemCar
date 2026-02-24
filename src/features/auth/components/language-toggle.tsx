@@ -2,7 +2,7 @@
 
 import { useLocale } from "next-intl";
 import { useRouter, usePathname, routing } from "@/i18n/routing";
-import { Button } from "@/features/auth/components/ui/button";
+import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
 export function LanguageToggle() {
