@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
-// 1. Importe o Provider que acabamos de juntar (ajuste o caminho se necessário)
 import { AppProviders } from "@/providers/AppProviders"; 
 
 const geistSans = Geist({
@@ -16,8 +15,11 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Gerenciamento de Carros", // Aproveitei para mudar o título!
+  title: "Gerenciamento de Carros", 
   description: "Administre sua frota com facilidade.",
+  icons: {
+    icon: "/car-icon.png", 
+  },
 };
 
 export default function RootLayout({
@@ -30,7 +32,6 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {/* 2. Envolva o children com o AppProviders */}
         <AppProviders>
           {children}
         </AppProviders>

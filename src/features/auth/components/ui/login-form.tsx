@@ -21,7 +21,6 @@ import {
 import { Input } from "@/components/ui/input";
 import { toast } from "react-toastify";
 
-// Importando a função do seu arquivo de schema
 import { createLoginSchema, LoginSchema } from "../../schemas/login-schema";
 
 export function LoginForm({
@@ -31,14 +30,13 @@ export function LoginForm({
   const router = useRouter();
   const [globalError, setGlobalError] = useState("");
 
-  // 1. Primeiro carregamos as traduções
+  //  carregando as traduções
   const t = useTranslations('Login');
   const tValidations = useTranslations("Validations");
 
-  // 2. Criamos o schema com as traduções ANTES de usar no useForm
+  //  Criação do schema com as traduções ANTES de usar no useForm
   const loginSchema = createLoginSchema(tValidations);
 
-  // 3. Agora sim, instanciamos o useForm
   const {
     register,
     handleSubmit,
@@ -57,9 +55,8 @@ export function LoginForm({
     });
 
     if (result?.error) {
-      // Usando a chave de erro do seu JSON
+      // Usando a chave de erro do JSON
       toast.error(t("error"));
-      setGlobalError(t("error"));
     } else {
       toast.success(t("success") || "Login ok!");
       router.push("/dashboard");
@@ -78,7 +75,7 @@ export function LoginForm({
           <form onSubmit={handleSubmit(onSubmit)} className="p-6 md:p-8">
             <FieldGroup>
               <div className="flex flex-col items-center gap-2 text-center">
-                <h1 className="text-2xl font-bold">{t("welcome")}</h1>
+                <h1 className="text-2xl font-bold text-[#003cff]">{t("welcome")}</h1>
                 <p className="text-muted-foreground text-balance">
                   {t("subtitle")}
                 </p>
@@ -113,7 +110,7 @@ export function LoginForm({
               </Field>
 
               <Field>
-                <Button type="submit" disabled={isSubmitting} className="cursor-pointer">
+                <Button type="submit" disabled={isSubmitting} className="cursor-pointer bg-[#003cff]">
                   {isSubmitting ? t("loading") : t("button")}
                 </Button>
               </Field>

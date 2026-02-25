@@ -1,0 +1,75 @@
+// src/components/cars/car-details.tsx (ajuste o caminho onde preferir criar)
+"use client";
+
+import { useRouter } from "next/navigation";
+import { ArrowLeft, Car, Calendar, Palette, Tag } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { EditCarModal } from "@/features/auth/components/ui/edit-car-modal";
+
+interface CarDetailsProps {
+  carro: any; 
+}
+
+export function CarDetails({ carro }: CarDetailsProps) {
+  const router = useRouter();
+
+  return (
+    <div className="flex flex-col items-center min-h-screen bg-gray-100 py-16 px-4 w-full">
+      <div className="w-full max-w-[1000px] flex flex-col gap-8">
+        
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-center w-full gap-6">
+          <div className="flex items-center gap-4">
+            <Button 
+              variant="ghost" 
+              onClick={() => router.push("/dashboard")}
+              className="hover:bg-white shadow-sm rounded-full p-2  cursor-pointer"
+            >
+              <ArrowLeft className="size-6 text-blue-600" />
+            </Button>
+            <div>
+              <h1 className="text-4xl font-bold text-blue-600 tracking-tight">
+                {carro?.model}
+              </h1>
+              <p className="text-gray-600 text-lg">Technical details of the vehicle</p>
+            </div>
+          </div>
+
+          <div className="flex items-center gap-4">
+            <EditCarModal carro={carro} />
+          </div>
+        </div>
+
+        <div className="bg-white p-10 rounded-xl shadow-lg border-t-8 border-t-[#003cff]">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+            <div className="space-y-8">
+              <DetailItem icon={<Tag />} label="Brand" value={carro?.brand} />
+              <DetailItem icon={<Car />} label="Model" value={carro?.model} />
+              <DetailItem icon={<Palette />} label="Color" value={carro?.color} />
+              <DetailItem icon={<Calendar />} label="Year of Manufacture" value={carro?.year} />
+              <DetailItem 
+                icon={<Calendar />} 
+                label="Registration Date" 
+                value={carro?.dateCreate ? new Date(carro.dateCreate).toLocaleString('pt-BR') : "---"} 
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// O DetailItem fica escondido aqui dentro, pois só esse componente usa ele.
+function DetailItem({ icon, label, value }: { icon: React.ReactNode, label: string, value: any }) {
+  return (
+    <div className="flex items-center gap-4 border-b border-gray-100 pb-4">
+      <div className="bg-blue-50 p-3 rounded-lg text-blue-600">
+        {icon}
+      </div>
+      <div>
+        <p className="text-sm text-gray-500 font-medium uppercase tracking-wider">{label}</p>
+        <p className="text-xl font-bold text-gray-800">{value || "---"}</p>
+      </div>
+    </div>
+  );
+}

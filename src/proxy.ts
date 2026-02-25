@@ -3,14 +3,14 @@ import createIntlMiddleware from "next-intl/middleware";
 import { routing } from "./i18n/routing";
 import { NextRequest } from "next/server";
 
-// 1. Criamos o middleware de idiomas
+// middleware de idiomas
 const intlMiddleware = createIntlMiddleware(routing);
 
-// 2. Criamos o middleware de autenticação
+// 2. middleware de autenticação
 const authMiddleware = withAuth(
   function middleware(req) {
     // Se o usuário chegar aqui, ele está autenticado.
-    // Agora passamos a requisição para o next-intl processar o idioma.
+    // requisição para o next-intl processar o idioma.
     return intlMiddleware(req);
   },
   {

@@ -5,7 +5,7 @@ import { SessionProvider } from "next-auth/react"; // <-- Importamos o SessionPr
 import { useState } from "react";
 
 export function AppProviders({ children }: { children: React.ReactNode }) {
-  // Mantemos a sua configuração excelente de staleTime
+  
   const [queryClient] = useState(() => new QueryClient({
     defaultOptions: {
       queries: {
@@ -15,7 +15,7 @@ export function AppProviders({ children }: { children: React.ReactNode }) {
   }));
 
   return (
-    // Colocamos o SessionProvider por fora do QueryClientProvider
+    
     <SessionProvider>
       <QueryClientProvider client={queryClient}>
         {children}

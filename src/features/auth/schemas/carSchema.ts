@@ -1,16 +1,15 @@
 import { z } from "zod";
 
 export const carSchema = z.object({
-  brand: z.string().min(1, "A marca é obrigatória"),
-  model: z.string().min(1, "O modelo é obrigatório"),
-  color: z.string().min(1, "A cor é obrigatória"),
+  brand: z.string().min(1, "The brand is mandatory."),
+  model: z.string().min(1, "The model is mandatory."),
+  color: z.string().min(1, "The color is mandatory."),
   // z.coerce.number() tenta converter o valor digitado (que no HTML é string) para número
   year: z.coerce
-    .number({ invalid_type_error: "O ano deve ser um número válido" })
-    .min(1886, "Ano inválido (o primeiro carro é de 1886)")
-    .max(new Date().getFullYear() + 1, "O ano não pode ser no futuro distante"),
+    .number({ invalid_type_error: "The year must be a valid number" })
+    .min(1886, "Invalid year (the first car was from 1886)")
+    .max(new Date().getFullYear() + 1, "The year cannot be in the distant future"),
 });
 
-// Inferimos a tipagem diretamente do schema e já exportamos ela!
 // Assim não precisamos criar uma interface 'CarCreateDto' separada para o formulário.
 export type CarFormData = z.infer<typeof carSchema>;

@@ -5,7 +5,7 @@ import { routing } from '@/i18n/routing';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'; 
 
-// Importe o seu novo QueryProvider aqui
+
 import { AppProviders } from "@/providers/AppProviders"; 
 
 export default async function LocaleLayout({
@@ -27,7 +27,6 @@ export default async function LocaleLayout({
     <html lang={locale}>
       <body className="antialiased">
         <NextIntlClientProvider messages={messages}>
-          {/* Envolva o children aqui para o TanStack Query funcionar em tudo */}
           <AppProviders>
             {children}
           </AppProviders>

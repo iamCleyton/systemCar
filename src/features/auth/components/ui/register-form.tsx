@@ -58,7 +58,7 @@ export function RegisterForm({ className, ...props }: React.ComponentProps<"div"
       router.push("/login");
     },
     onError: (error: any) => {
-    // Aqui fazemos o "de-para" da tradução
+   
     if (error.message === "Email already exists") {
       toast.error(t("emailAlreadyExists"));
     } else {
@@ -81,8 +81,8 @@ export function RegisterForm({ className, ...props }: React.ComponentProps<"div"
           <form onSubmit={handleSubmit(onSubmit)} className="p-6 md:p-8">
             <FieldGroup>
               <div className="flex flex-col items-center gap-2 text-center">
-                <h1 className="text-2xl font-bold">{t("title")}</h1>
-                <p className="text-muted-foreground text-balance">
+                <h1 className="text-2xl font-bold text-[#003cff]">{t("title")}</h1>
+                <p className="text-muted-foreground text-balance ">
                   {t("subtitle")}
                 </p>
               </div>
@@ -132,7 +132,7 @@ export function RegisterForm({ className, ...props }: React.ComponentProps<"div"
               </Field>
 
               <Field>
-                <Button type="submit" disabled={mutation.isPending} className="cursor-pointer">
+                <Button type="submit" disabled={mutation.isPending} className="cursor-pointer bg-[#003cff]">
                   {mutation.isPending ? t("loading") : t("button")}
                 </Button>
               </Field>

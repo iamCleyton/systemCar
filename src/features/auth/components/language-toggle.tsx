@@ -21,8 +21,8 @@ export function LanguageToggle() {
         variant={locale === "pt" ? "default" : "ghost"}
         size="sm"
         className={cn(
-          "h-8 px-3 text-xs transition-all cursor-pointer",
-          locale === "pt" ? "shadow-sm" : "text-muted-foreground"
+          "h-8 px-3 text-xs transition-all cursor-pointer bg-[#003cff]",
+          locale === "pt" ? "shadow-sm" : "text-muted-foreground bg-transparent hover:bg-muted"
         )}
         onClick={() => changeLanguage("pt")}
       >
@@ -32,8 +32,8 @@ export function LanguageToggle() {
         variant={locale === "en" ? "default" : "ghost"}
         size="sm"
         className={cn(
-          "h-8 px-3 text-xs transition-all cursor-pointer",
-          locale === "en" ? "shadow-sm" : "text-muted-foreground"
+          "h-8 px-3 text-xs transition-all cursor-pointer bg-[#003cff]",
+          locale === "en" ? "shadow-sm" : "text-muted-foreground bg-transparent hover:bg-muted"
         )}
         onClick={() => changeLanguage("en")}
       >

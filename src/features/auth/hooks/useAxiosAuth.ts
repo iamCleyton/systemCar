@@ -14,7 +14,7 @@ export const useAxiosAuth = () => {
   const { data: session } = useSession();
 
   useEffect(() => {
-    // 1. RAIO-X DA SESSÃO: Vamos ver toda a estrutura dela!
+    // RAIO-X DA SESSÃO: Vamos ver toda a estrutura dela!
     console.log("SESSÃO INTEIRA DO NEXTAUTH:", session);
     const requestIntercept = api.interceptors.request.use(
       (config) => {

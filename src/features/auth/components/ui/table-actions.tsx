@@ -30,6 +30,7 @@ import { useRouter } from "next/navigation";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useAxiosAuth } from "@/features/auth/hooks/useAxiosAuth";
 import { EditCarModal } from "@/features/auth/components/ui/edit-car-modal";
+import { toast } from "react-toastify";
 
 // Definindo as Props para receber os dados do Dashboard
 interface TableActionsProps {
@@ -48,11 +49,11 @@ export function TableActions({ data, isLoading }: TableActionsProps) {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["cars"] });
-      alert("Carro excluído com sucesso!");
+      toast.success("Carro excluído com sucesso!");
     },
     onError: (error) => {
       console.error("Erro ao excluir:", error);
-      alert("Erro ao excluir o veículo.");
+      toast.error("Erro ao excluir o veículo.");
     }
   });
 
@@ -60,7 +61,7 @@ export function TableActions({ data, isLoading }: TableActionsProps) {
     return (
       <div className="flex justify-center items-center py-10 text-gray-500">
         <Loader2 className="h-8 w-8 animate-spin mr-2 text-blue-600" />
-        Carregando veículos...
+        Loading vehicles...
       </div>
     );
   }
@@ -71,11 +72,11 @@ export function TableActions({ data, isLoading }: TableActionsProps) {
     <Table>
       <TableHeader>
         <TableRow>
-          <TableHead>Modelo</TableHead>
-          <TableHead>Marca</TableHead>
-          <TableHead>Cor</TableHead>
-          <TableHead>Ano</TableHead>
-          <TableHead>Criado em</TableHead>
+          <TableHead>Model</TableHead>
+          <TableHead>Brand</TableHead>
+          <TableHead>Color</TableHead>
+          <TableHead>Year</TableHead>
+          <TableHead>Created at</TableHead>
           <TableHead className="text-center">Actions</TableHead>
         </TableRow>
       </TableHeader>
@@ -107,7 +108,7 @@ export function TableActions({ data, isLoading }: TableActionsProps) {
                         className="cursor-pointer"
                         onClick={() => router.push(`/dashboard/cars/${carro.id}`)}
                       >
-                        <Eye className="mr-2 h-4 w-4" /> Visualizar
+                        <Eye className="mr-2 h-4 w-4" /> View
                       </DropdownMenuItem>
                       <EditCarModal carro={carro} />
                       <AlertDialogTrigger asChild>

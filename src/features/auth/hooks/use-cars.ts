@@ -4,7 +4,7 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useAxiosAuth } from "@/features/auth/hooks/useAxiosAuth";
 import { Page, Car } from "@/features/auth/types/car"; 
 
-// 1. Hook para buscar a lista de carros (Paginação e Filtros)
+//  Hook para buscar a lista de carros (Paginação e Filtros)
 export function useCars(page = 0, size = 10, brand?: string, model?: string, color?: string, year?: number) {
   const axiosAuth = useAxiosAuth();
 
@@ -20,7 +20,7 @@ export function useCars(page = 0, size = 10, brand?: string, model?: string, col
   });
 }
 
-// 2. Hook para buscar APENAS UM carro pelo ID (Usado na página de detalhes)
+// Hook para buscar APENAS UM carro pelo ID (Usado na página de detalhes)
 export function useCar(id: string) {
   const axiosAuth = useAxiosAuth();
 
@@ -49,11 +49,9 @@ export function useUpdateCar() {
     onSuccess: () => {
       // Atualiza a lista de carros automaticamente na tabela
       queryClient.invalidateQueries({ queryKey: ["cars"] });
-      alert("Carro atualizado com sucesso!");
     },
     onError: (error) => {
       console.error("Erro ao atualizar carro:", error);
-      alert("Falha ao atualizar o veículo.");
     }
   });
 }

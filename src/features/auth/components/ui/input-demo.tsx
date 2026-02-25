@@ -17,13 +17,13 @@ interface InputDemoProps {
 }
 
 export function InputDemo({ onFilter }: InputDemoProps) {
-  // 1. Estados locais para cada input
+  //  Estados locais para cada input
   const [model, setModel] = useState("");
   const [brand, setBrand] = useState("");
   const [color, setColor] = useState("");
   const [year, setYear] = useState<string>("");
 
-  // 2. Ação do botão "Filtrar" (O "Enter")
+  //  Ação do botão "Filtrar" (O "Enter")
   const handleFilter = () => {
     onFilter({
       model: model.trim(),
@@ -33,7 +33,7 @@ export function InputDemo({ onFilter }: InputDemoProps) {
     });
   };
 
-  // 3. Ação do botão "Limpar"
+  //  Ação do botão "Limpar"
   const handleClear = () => {
     // Zera os campos na tela
     setModel("");
@@ -62,7 +62,7 @@ export function InputDemo({ onFilter }: InputDemoProps) {
       
       {/* Input de Modelo */}
       <div className="flex-1 flex flex-col gap-2 w-full">
-        <label className="text-sm font-bold text-gray-700">Modelo</label>
+        <label className="text-sm font-bold text-gray-700">Model</label>
         <Input 
           placeholder="Ex: Tesla" 
           value={model} 
@@ -73,7 +73,7 @@ export function InputDemo({ onFilter }: InputDemoProps) {
 
       {/* Input de Marca */}
       <div className="flex-1 flex flex-col gap-2 w-full">
-        <label className="text-sm font-bold text-gray-700">Marca</label>
+        <label className="text-sm font-bold text-gray-700">Brand</label>
         <Input 
           placeholder="Ex: Porsche" 
           value={brand} 
@@ -84,7 +84,7 @@ export function InputDemo({ onFilter }: InputDemoProps) {
 
       {/* Input de Cor */}
       <div className="flex-1 flex flex-col gap-2 w-full">
-        <label className="text-sm font-bold text-gray-700">Cor</label>
+        <label className="text-sm font-bold text-gray-700">Color</label>
         <Input 
           placeholder="Ex: Preto" 
           value={color} 
@@ -95,7 +95,7 @@ export function InputDemo({ onFilter }: InputDemoProps) {
 
       {/* Input de Ano */}
       <div className="flex-1 flex flex-col gap-2 w-full">
-        <label className="text-sm font-bold text-gray-700">Ano</label>
+        <label className="text-sm font-bold text-gray-700">Year</label>
         <Input 
           type="number" 
           placeholder="Ex: 2024" 
@@ -106,19 +106,19 @@ export function InputDemo({ onFilter }: InputDemoProps) {
       </div>
 
       {/* Botões */}
-      <div className="flex gap-2 w-full md:w-auto mt-4 md:mt-0">
+      <div className="flex gap-2 w-full md:w-auto flex-col md:flex-row md:gap-5  mt-4 md:mt-0">
         <Button 
           onClick={handleFilter} 
-          className="bg-[#003cff] hover:bg-blue-700 text-white px-6 w-full md:w-auto"
+          className="bg-[#003cff] hover:bg-blue-700 text-white px-6 w-full md:w-auto cursor-pointer"
         >
-          Filtrar
+          Filter
         </Button>
         <Button 
           onClick={handleClear} 
           variant="outline" 
-          className="border-[#003cff] text-[#003cff] hover:bg-blue-50 px-6 w-full md:w-auto"
+          className="border-[#003cff] text-[#003cff] hover:bg-blue-50 px-6 w-full md:w-auto cursor-pointer"
         >
-          Limpar
+          Clean
         </Button>
       </div>
 

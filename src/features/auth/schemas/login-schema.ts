@@ -2,7 +2,7 @@ import { z } from "zod";
 
 const emailRegex = /^[a-z0-9.+-]+@[a-z0-9.-]+\.[a-z]{2,}$/;
 
-// Transformamos o schema em uma função que recebe 't' (a função de tradução)
+
 export const createLoginSchema = (t: any) => z.object({
   email: z
     .string()

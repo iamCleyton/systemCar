@@ -39,8 +39,8 @@ export default function DashboardPage() {
         {/* Header */}
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center w-[90%] gap-6">
           <div>
-            <h1 className="text-4xl font-bold text-blue-600 tracking-tight">Gerenciamento de Carros</h1>
-            <p className="text-gray-600 text-lg">Administre sua frota com facilidade.</p>
+            <h1 className="text-4xl font-bold text-blue-600 tracking-tight">Car Management</h1>
+            <p className="text-gray-600 text-lg">Manage your fleet with ease.</p>
           </div>
           <div className="flex items-center gap-4">
             <CreateCarModal />
@@ -56,8 +56,8 @@ export default function DashboardPage() {
         {/* Tabela - Recebe os dados do hook useCars desta página */}
         <div className="bg-white p-8 rounded-xl w-[90%] shadow-lg border-t-8 border-t-[#003cff]">
           <div className="mb-8">
-            <h2 className="text-3xl font-bold text-gray-800 mb-2">Veículos no Pátio</h2>
-            <p className="text-gray-500">Visualize e edite os dados dos carros cadastrados.</p>
+            <h2 className="text-3xl font-bold text-gray-800 mb-2">Vehicles in the Yard</h2>
+            <p className="text-gray-500">View and edit the data of registered cars.</p>
           </div>
           <TableActions data={data?.content || []} isLoading={isLoading} />
         </div>
