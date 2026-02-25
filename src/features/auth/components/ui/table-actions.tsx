@@ -31,8 +31,9 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useAxiosAuth } from "@/features/auth/hooks/useAxiosAuth";
 import { EditCarModal } from "@/features/auth/components/ui/edit-car-modal";
 import { toast } from "react-toastify";
+// 1. Importando os hooks de internacionalização
+import { useTranslations, useLocale } from "next-intl";
 
-// Definindo as Props para receber os dados do Dashboard
 interface TableActionsProps {
   data: any[];
   isLoading: boolean;
@@ -42,6 +43,10 @@ export function TableActions({ data, isLoading }: TableActionsProps) {
   const router = useRouter();
   const axiosAuth = useAxiosAuth();
   const queryClient = useQueryClient();
+  
+  // 2. Inicializando os hooks (buscando as chaves do namespace "TableActions")
+  const t = useTranslations("TableActions");
+  const locale = useLocale(); // Retorna "pt-BR", "en-US", etc.
 
   const deleteCarMutation = useMutation({
     mutationFn: async (id: number) => {
@@ -49,11 +54,12 @@ export function TableActions({ data, isLoading }: TableActionsProps) {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["cars"] });
-      toast.success("Carro excluído com sucesso!");
+      // 3. Traduzindo os toasts
+      toast.success(t("messages.deleteSuccess"));
     },
     onError: (error) => {
       console.error("Erro ao excluir:", error);
-      toast.error("Erro ao excluir o veículo.");
+      toast.error(t("messages.deleteError"));
     }
   });
 
@@ -61,7 +67,7 @@ export function TableActions({ data, isLoading }: TableActionsProps) {
     return (
       <div className="flex justify-center items-center py-10 text-gray-500">
         <Loader2 className="h-8 w-8 animate-spin mr-2 text-blue-600" />
-        Loading vehicles...
+        {t("loading")}
       </div>
     );
   }
@@ -72,19 +78,20 @@ export function TableActions({ data, isLoading }: TableActionsProps) {
     <Table>
       <TableHeader>
         <TableRow>
-          <TableHead>Model</TableHead>
-          <TableHead>Brand</TableHead>
-          <TableHead>Color</TableHead>
-          <TableHead>Year</TableHead>
-          <TableHead>Created at</TableHead>
-          <TableHead className="text-center">Actions</TableHead>
+          {/* 4. Traduzindo os cabeçalhos da tabela */}
+          <TableHead>{t("columns.model")}</TableHead>
+          <TableHead>{t("columns.brand")}</TableHead>
+          <TableHead>{t("columns.color")}</TableHead>
+          <TableHead>{t("columns.year")}</TableHead>
+          <TableHead>{t("columns.createdAt")}</TableHead>
+          <TableHead className="text-center">{t("columns.actions")}</TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>
         {carros.length === 0 ? (
           <TableRow>
-            <TableCell colSpan={5} className="text-center py-10 text-gray-500">
-              Nenhum veículo encontrado no pátio.
+            <TableCell colSpan={6} className="text-center py-10 text-gray-500">
+              {t("emptyState")}
             </TableCell>
           </TableRow>
         ) : (
@@ -94,7 +101,12 @@ export function TableActions({ data, isLoading }: TableActionsProps) {
               <TableCell>{carro.brand}</TableCell>
               <TableCell>{carro.color}</TableCell>
               <TableCell>{carro.year}</TableCell>
-              <TableCell>{carro.dateCreate ? new Date(carro.dateCreate).toLocaleDateString('pt-BR') : "---"}</TableCell>
+              {/* 5. Internacionalizando a data usando o locale dinâmico */}
+              <TableCell>
+                {carro.dateCreate 
+                  ? new Date(carro.dateCreate).toLocaleDateString(locale) 
+                  : "---"}
+              </TableCell>
               <TableCell className="text-center">
                 <AlertDialog>
                   <DropdownMenu>
@@ -108,12 +120,12 @@ export function TableActions({ data, isLoading }: TableActionsProps) {
                         className="cursor-pointer"
                         onClick={() => router.push(`/dashboard/cars/${carro.id}`)}
                       >
-                        <Eye className="mr-2 h-4 w-4" /> View
+                        <Eye className="mr-2 h-4 w-4" /> {t("actions.view")}
                       </DropdownMenuItem>
                       <EditCarModal carro={carro} />
                       <AlertDialogTrigger asChild>
                         <DropdownMenuItem className="text-red-600 cursor-pointer">
-                          <Trash className="mr-2 h-4 w-4" /> Delete
+                          <Trash className="mr-2 h-4 w-4" /> {t("actions.delete")}
                         </DropdownMenuItem>
                       </AlertDialogTrigger>
                     </DropdownMenuContent>
@@ -121,16 +133,21 @@ export function TableActions({ data, isLoading }: TableActionsProps) {
 
                   <AlertDialogContent className="bg-white">
                     <AlertDialogHeader>
-                      <AlertDialogTitle>Deseja mesmo excluir o {carro.model}?</AlertDialogTitle>
+                      {/* Passando variáveis para a tradução */}
+                      <AlertDialogTitle>
+                        {t("deleteModal.title", { model: carro.model })}
+                      </AlertDialogTitle>
                     </AlertDialogHeader>
                     <AlertDialogFooter>
-                      <AlertDialogCancel>Não</AlertDialogCancel>
+                      <AlertDialogCancel>{t("deleteModal.cancel")}</AlertDialogCancel>
                       <AlertDialogAction 
                         className="bg-red-600 hover:bg-red-700 transition-colors"
                         onClick={() => deleteCarMutation.mutate(carro.id)}
                         disabled={deleteCarMutation.isPending}
                       >
-                        {deleteCarMutation.isPending ? "Excluindo..." : "Sim, Excluir"}
+                        {deleteCarMutation.isPending 
+                          ? t("deleteModal.deleting") 
+                          : t("deleteModal.confirm")}
                       </AlertDialogAction>
                     </AlertDialogFooter>
                   </AlertDialogContent>

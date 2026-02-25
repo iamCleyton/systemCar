@@ -1,10 +1,11 @@
-// src/components/cars/car-details.tsx (ajuste o caminho onde preferir criar)
 "use client";
 
 import { useRouter } from "next/navigation";
 import { ArrowLeft, Car, Calendar, Palette, Tag } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { EditCarModal } from "@/features/auth/components/ui/edit-car-modal";
+import { LanguageToggle } from "../language-toggle";
+import { useTranslations, useLocale } from "next-intl";
 
 interface CarDetailsProps {
   carro: any; 
@@ -12,17 +13,21 @@ interface CarDetailsProps {
 
 export function CarDetails({ carro }: CarDetailsProps) {
   const router = useRouter();
+  
+  const t = useTranslations("CarDetails");
+  const locale = useLocale();
 
   return (
     <div className="flex flex-col items-center min-h-screen bg-gray-100 py-16 px-4 w-full">
       <div className="w-full max-w-[1000px] flex flex-col gap-8">
         
+        {/* Header */}
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center w-full gap-6">
           <div className="flex items-center gap-4">
             <Button 
               variant="ghost" 
               onClick={() => router.push("/dashboard")}
-              className="hover:bg-white shadow-sm rounded-full p-2  cursor-pointer"
+              className="hover:bg-white shadow-sm rounded-full p-2 cursor-pointer"
             >
               <ArrowLeft className="size-6 text-blue-600" />
             </Button>
@@ -30,26 +35,31 @@ export function CarDetails({ carro }: CarDetailsProps) {
               <h1 className="text-4xl font-bold text-blue-600 tracking-tight">
                 {carro?.model}
               </h1>
-              <p className="text-gray-600 text-lg">Technical details of the vehicle</p>
+              <p className="text-gray-600 text-lg">{t("subtitle")}</p>
             </div>
           </div>
 
-          <div className="flex items-center gap-4">
-            <EditCarModal carro={carro} />
+          <div className="flex flex-col items-center md:items-end gap-3 w-full md:w-auto">
+            <LanguageToggle />
+            <div className="flex items-center gap-4">
+              <EditCarModal carro={carro} />
+            </div>
           </div>
         </div>
 
         <div className="bg-white p-10 rounded-xl shadow-lg border-t-8 border-t-[#003cff]">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
             <div className="space-y-8">
-              <DetailItem icon={<Tag />} label="Brand" value={carro?.brand} />
-              <DetailItem icon={<Car />} label="Model" value={carro?.model} />
-              <DetailItem icon={<Palette />} label="Color" value={carro?.color} />
-              <DetailItem icon={<Calendar />} label="Year of Manufacture" value={carro?.year} />
+              <DetailItem icon={<Tag />} label={t("labels.brand")} value={carro?.brand} />
+              <DetailItem icon={<Car />} label={t("labels.model")} value={carro?.model} />
+              <DetailItem icon={<Palette />} label={t("labels.color")} value={carro?.color} />
+              <DetailItem icon={<Calendar />} label={t("labels.year")} value={carro?.year} />
+              
+              {/* Comentário colocado fora das props do componente para não quebrar a sintaxe */}
               <DetailItem 
                 icon={<Calendar />} 
-                label="Registration Date" 
-                value={carro?.dateCreate ? new Date(carro.dateCreate).toLocaleString('pt-BR') : "---"} 
+                label={t("labels.registrationDate")} 
+                value={carro?.dateCreate ? new Date(carro.dateCreate).toLocaleString(locale) : "---"} 
               />
             </div>
           </div>
@@ -59,7 +69,6 @@ export function CarDetails({ carro }: CarDetailsProps) {
   );
 }
 
-// O DetailItem fica escondido aqui dentro, pois só esse componente usa ele.
 function DetailItem({ icon, label, value }: { icon: React.ReactNode, label: string, value: any }) {
   return (
     <div className="flex items-center gap-4 border-b border-gray-100 pb-4">

@@ -66,7 +66,7 @@ export function LoginForm({
 
   return (
     <div className={cn("flex flex-col gap-6 justify-center", className)} {...props}>
-      <div className="flex justify-end items-center absolute gap-2 top-5 right-5">
+      <div className="flex justify-end items-center absolute gap-2 top-5 right-5 ">
         <LanguageToggle />
       </div>
 

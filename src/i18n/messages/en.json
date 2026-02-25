@@ -34,6 +34,141 @@
     "success": "Account created successfully!",
     "error": "Error creating account",
     "emailAlreadyExists": "This email is already registered in our system."
+  },
+
+  
+  "TableActions": {
+    "loading": "Loading vehicles...",
+    "emptyState": "No vehicles found in the yard.",
+    "columns": {
+      "model": "Model",
+      "brand": "Brand",
+      "color": "Color",
+      "year": "Year",
+      "createdAt": "Created at",
+      "actions": "Actions"
+    },
+
+    "actions": {
+      "view": "View",
+      "delete": "Delete"
+    },
+
+    "messages": {
+      "deleteSuccess": "Car successfully deleted!",
+      "deleteError": "Error deleting the vehicle."
+    },
+    "deleteModal": {
+      "title": "Are you sure you want to delete {model}?",
+      "cancel": "No",
+      "confirm": "Yes, Delete",
+      "deleting": "Deleting..."
+    }
+  },
+
+  
+  "InputDemo": {
+    "labels": {
+      "model": "Model",
+      "brand": "Brand",
+      "color": "Color",
+      "year": "Year"
+    },
+    "placeholders": {
+      "model": "e.g., Corolla",
+      "brand": "e.g., Toyota",
+      "color": "e.g., Black",
+      "year": "e.g., 2024"
+    },
+    "buttons": {
+      "filter": "Filter",
+      "clear": "Clear"
+    }
+  },
+
+
+  "LogoutButton": {
+    "logout": "Logout",
+    "feedback": "You have been logged out successfully!"
+  },
+
+  "Pagination": {
+    "previous": "Previous",
+    "next": "Next"
+  },
+
+  
+  "CreateCarModal": {
+    "trigger": "+ Register Car",
+    "title": "New Car",
+    "labels": {
+      "brand": "Brand",
+      "model": "Model",
+      "color": "Color",
+      "year": "Year"
+    },
+    "placeholders": {
+      "brand": "e.g., Porsche",
+      "model": "e.g., 911 Carrera",
+      "color": "e.g., White",
+      "year": "e.g., 2024"
+    },
+    "buttons": {
+      "cancel": "Cancel",
+      "saving": "Saving...",
+      "save": "Save"
+    },
+    "messages": {
+      "success": "Car successfully registered!",
+      "error": "An error occurred while saving the car."
+    }
+  },
+
+  
+  "DashboardPage": {
+    "header": {
+      "title": "Car Management",
+      "subtitle": "Manage your fleet with ease."
+    },
+    "tableSection": {
+      "title": "Vehicles in the Yard",
+      "subtitle": "View and edit the data of registered cars."
+    }
+  },
+
+  
+  "EditCarModal": {
+    "trigger": "Update vehicle",
+    "title": "Update",
+    "labels": {
+      "model": "Model",
+      "brand": "Brand",
+      "color": "Color",
+      "year": "Year"
+    },
+    "buttons": {
+      "saving": "Saving...",
+      "confirm": "Confirm Changes"
+    },
+    "messages": {
+      "success": "Car successfully updated!"
+    }
+  },
+
+  
+  "CarDetails": {
+    "subtitle": "Technical details of the vehicle",
+    "labels": {
+      "brand": "Brand",
+      "model": "Model",
+      "color": "Color",
+      "year": "Year of Manufacture",
+      "registrationDate": "Registration Date"
+    }
   }
+
+
+
+
 
 }

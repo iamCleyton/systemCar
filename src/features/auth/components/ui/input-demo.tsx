@@ -3,8 +3,9 @@
 import { useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+// 1. Importando o hook de tradução
+import { useTranslations } from "next-intl";
 
-// Tipagem dos filtros que o Dashboard espera receber
 interface Filters {
   brand: string;
   model: string;
@@ -17,31 +18,29 @@ interface InputDemoProps {
 }
 
 export function InputDemo({ onFilter }: InputDemoProps) {
-  //  Estados locais para cada input
+  // 2. Inicializando o hook com o namespace "InputDemo"
+  const t = useTranslations("InputDemo");
+
   const [model, setModel] = useState("");
   const [brand, setBrand] = useState("");
   const [color, setColor] = useState("");
   const [year, setYear] = useState<string>("");
 
-  //  Ação do botão "Filtrar" (O "Enter")
   const handleFilter = () => {
     onFilter({
       model: model.trim(),
       brand: brand.trim(),
       color: color.trim(),
-      year: year ? parseInt(year, 10) : undefined, // Converte o ano para número se existir
+      year: year ? parseInt(year, 10) : undefined,
     });
   };
 
-  //  Ação do botão "Limpar"
   const handleClear = () => {
-    // Zera os campos na tela
     setModel("");
     setBrand("");
     setColor("");
     setYear("");
     
-    // Dispara a busca com os filtros vazios (traz todos os carros de volta)
     onFilter({
       model: "",
       brand: "",
@@ -50,7 +49,6 @@ export function InputDemo({ onFilter }: InputDemoProps) {
     });
   };
 
-  // Permite filtrar ao apertar a tecla "Enter" dentro de qualquer input
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
       handleFilter();
@@ -62,9 +60,10 @@ export function InputDemo({ onFilter }: InputDemoProps) {
       
       {/* Input de Modelo */}
       <div className="flex-1 flex flex-col gap-2 w-full">
-        <label className="text-sm font-bold text-gray-700">Model</label>
+        {/* 3. Traduzindo labels e placeholders */}
+        <label className="text-sm font-bold text-gray-700">{t("labels.model")}</label>
         <Input 
-          placeholder="Ex: Tesla" 
+          placeholder={t("placeholders.model")}
           value={model} 
           onChange={(e) => setModel(e.target.value)} 
           onKeyDown={handleKeyDown}
@@ -73,9 +72,9 @@ export function InputDemo({ onFilter }: InputDemoProps) {
 
       {/* Input de Marca */}
       <div className="flex-1 flex flex-col gap-2 w-full">
-        <label className="text-sm font-bold text-gray-700">Brand</label>
+        <label className="text-sm font-bold text-gray-700">{t("labels.brand")}</label>
         <Input 
-          placeholder="Ex: Porsche" 
+          placeholder={t("placeholders.brand")}
           value={brand} 
           onChange={(e) => setBrand(e.target.value)} 
           onKeyDown={handleKeyDown}
@@ -84,9 +83,9 @@ export function InputDemo({ onFilter }: InputDemoProps) {
 
       {/* Input de Cor */}
       <div className="flex-1 flex flex-col gap-2 w-full">
-        <label className="text-sm font-bold text-gray-700">Color</label>
+        <label className="text-sm font-bold text-gray-700">{t("labels.color")}</label>
         <Input 
-          placeholder="Ex: Preto" 
+          placeholder={t("placeholders.color")}
           value={color} 
           onChange={(e) => setColor(e.target.value)} 
           onKeyDown={handleKeyDown}
@@ -95,10 +94,10 @@ export function InputDemo({ onFilter }: InputDemoProps) {
 
       {/* Input de Ano */}
       <div className="flex-1 flex flex-col gap-2 w-full">
-        <label className="text-sm font-bold text-gray-700">Year</label>
+        <label className="text-sm font-bold text-gray-700">{t("labels.year")}</label>
         <Input 
           type="number" 
-          placeholder="Ex: 2024" 
+          placeholder={t("placeholders.year")}
           value={year} 
           onChange={(e) => setYear(e.target.value)} 
           onKeyDown={handleKeyDown}
@@ -106,19 +105,19 @@ export function InputDemo({ onFilter }: InputDemoProps) {
       </div>
 
       {/* Botões */}
-      <div className="flex gap-2 w-full md:w-auto flex-col md:flex-row md:gap-5  mt-4 md:mt-0">
+      <div className="flex gap-2 w-full md:w-auto flex-col md:flex-row md:gap-5 mt-4 md:mt-0">
         <Button 
           onClick={handleFilter} 
           className="bg-[#003cff] hover:bg-blue-700 text-white px-6 w-full md:w-auto cursor-pointer"
         >
-          Filter
+          {t("buttons.filter")}
         </Button>
         <Button 
           onClick={handleClear} 
           variant="outline" 
           className="border-[#003cff] text-[#003cff] hover:bg-blue-50 px-6 w-full md:w-auto cursor-pointer"
         >
-          Clean
+          {t("buttons.clear")}
         </Button>
       </div>
 

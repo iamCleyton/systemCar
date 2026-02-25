@@ -11,5 +11,4 @@ export const carSchema = z.object({
     .max(new Date().getFullYear() + 1, "The year cannot be in the distant future"),
 });
 
-// Assim não precisamos criar uma interface 'CarCreateDto' separada para o formulário.
 export type CarFormData = z.infer<typeof carSchema>;

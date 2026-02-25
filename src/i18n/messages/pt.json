@@ -35,6 +35,140 @@
     "success": "Conta criada com sucesso!",
     "error": "Erro ao criar conta",
     "emailAlreadyExists": "Este e-mail já está cadastrado no sistema."
-}
+},
+
+
+
+  "TableActions": {
+    "loading": "Carregando veículos...",
+    "emptyState": "Nenhum veículo encontrado no pátio.",
+    "columns": {
+      "model": "Modelo",
+      "brand": "Marca",
+      "color": "Cor",
+      "year": "Ano",
+      "createdAt": "Criado em",
+      "actions": "Ações"
+    },
+
+    "actions": {
+      "view": "Visualizar",
+      "delete": "Excluir"
+    },
+
+    "messages": {
+      "deleteSuccess": "Carro excluído com sucesso!",
+      "deleteError": "Erro ao excluir o veículo."
+    },
+    
+    "deleteModal": {
+      "title": "Deseja mesmo excluir o {model}?",
+      "cancel": "Não",
+      "confirm": "Sim, Excluir",
+      "deleting": "Excluindo..."
+    }
+  },
+  
+  "InputDemo": {
+    "labels": {
+      "model": "Modelo",
+      "brand": "Marca",
+      "color": "Cor",
+      "year": "Ano"
+    },
+    "placeholders": {
+      "model": "Ex: Corolla",
+      "brand": "Ex: Toyota",
+      "color": "Ex: Preto",
+      "year": "Ex: 2024"
+    },
+    "buttons": {
+      "filter": "Filtrar",
+      "clear": "Limpar"
+    }
+  },
+
+  "LogoutButton": {
+    "logout": "Sair",
+    "feedback": "Você foi desconectado com sucesso!"
+  },
+
+  "Pagination": {
+    "previous": "Anterior",
+    "next": "Próximo"
+  },
+
+  "CreateCarModal": {
+    "trigger": "+ Cadastrar Carro",
+    "title": "Novo Carro",
+    "labels": {
+      "brand": "Marca",
+      "model": "Modelo",
+      "color": "Cor",
+      "year": "Ano"
+    },
+    "placeholders": {
+      "brand": "Ex: Porsche",
+      "model": "Ex: 911 Carrera",
+      "color": "Ex: Branco",
+      "year": "Ex: 2024"
+    },
+    "buttons": {
+      "cancel": "Cancelar",
+      "saving": "Salvando...",
+      "save": "Salvar"
+    },
+    "messages": {
+      "success": "Carro cadastrado com sucesso!",
+      "error": "Ocorreu um erro ao salvar o carro."
+    }
+  },
+
+  
+  "DashboardPage": {
+    "header": {
+      "title": "Gestão de Carros",
+      "subtitle": "Gerencie sua frota com facilidade."
+    },
+    "tableSection": {
+      "title": "Veículos no Pátio",
+      "subtitle": "Visualize e edite os dados dos carros cadastrados."
+    }
+  },
+
+  
+  "EditCarModal": {
+    "trigger": "Atualizar veículo",
+    "title": "Atualizar",
+    "labels": {
+      "model": "Modelo",
+      "brand": "Marca",
+      "color": "Cor",
+      "year": "Ano"
+    },
+    "buttons": {
+      "saving": "Salvando...",
+      "confirm": "Confirmar Alterações"
+    },
+    "messages": {
+      "success": "Carro atualizado com sucesso!"
+    }
+  },
+
+  
+  "CarDetails": {
+    "subtitle": "Detalhes técnicos do veículo",
+    "labels": {
+      "brand": "Marca",
+      "model": "Modelo",
+      "color": "Cor",
+      "year": "Ano de Fabricação",
+      "registrationDate": "Data de Registro"
+    }
+  }
+
+  
+
+
 
 }
