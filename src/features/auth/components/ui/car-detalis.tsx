@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { EditCarModal } from "@/features/auth/components/ui/edit-car-modal";
 import { LanguageToggle } from "../language-toggle";
 import { useTranslations, useLocale } from "next-intl";
+import { ModeToggle } from "./mode-toggle";
 
 interface CarDetailsProps {
   carro: any; 
@@ -40,7 +41,10 @@ export function CarDetails({ carro }: CarDetailsProps) {
           </div>
 
           <div className="flex flex-col items-center md:items-end gap-3 w-full md:w-auto">
-            <LanguageToggle />
+            <div className="flex flex-row">
+              <ModeToggle />
+              <LanguageToggle />
+            </div>
             <div className="flex items-center gap-4">
               <EditCarModal carro={carro} />
             </div>

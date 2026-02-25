@@ -22,6 +22,7 @@ import { Input } from "@/components/ui/input";
 import { toast } from "react-toastify";
 
 import { createLoginSchema, LoginSchema } from "../../schemas/login-schema";
+import { ModeToggle } from "./mode-toggle";
 
 export function LoginForm({
   className,
@@ -67,6 +68,7 @@ export function LoginForm({
   return (
     <div className={cn("flex flex-col gap-6 justify-center", className)} {...props}>
       <div className="flex justify-end items-center absolute gap-2 top-5 right-5 ">
+        <ModeToggle />
         <LanguageToggle />
       </div>
 

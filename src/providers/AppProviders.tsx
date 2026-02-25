@@ -3,6 +3,8 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { SessionProvider } from "next-auth/react"; // <-- Importamos o SessionProvider
 import { useState } from "react";
+import * as React from "react";
+import { ThemeProvider as NextThemesProvider } from "next-themes";
 
 export function AppProviders({ children }: { children: React.ReactNode }) {
   
@@ -22,4 +24,11 @@ export function AppProviders({ children }: { children: React.ReactNode }) {
       </QueryClientProvider>
     </SessionProvider>
   );
+}
+
+ export function ThemeProvider({
+  children,
+  ...props
+}: React.ComponentProps<typeof NextThemesProvider>) {
+  return <NextThemesProvider {...props}>{children}</NextThemesProvider>;
 }

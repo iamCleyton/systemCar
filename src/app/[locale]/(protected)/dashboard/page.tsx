@@ -10,6 +10,7 @@ import { useCars } from "@/features/auth/hooks/use-cars";
 import { LanguageToggle } from "@/features/auth/components/language-toggle";
 // 1. Importando o hook
 import { useTranslations } from "next-intl";
+import { ModeToggle } from "@/features/auth/components/ui/mode-toggle";
 
 export default function DashboardPage() {
   const [page, setPage] = useState(0);
@@ -56,7 +57,10 @@ export default function DashboardPage() {
 
           {/* 4. Ajuste de Layout: O toggle agora fica em uma coluna centralizada acima dos botões */}
           <div className="flex flex-col items-center md:items-end gap-3">
-            <LanguageToggle />
+            <div className="flex flex-row">
+              <ModeToggle />
+              <LanguageToggle />
+            </div>
             <div className="flex items-center gap-4">
               <CreateCarModal />
               <LogoutButton />
