@@ -42,11 +42,11 @@ export function EditCarModal({ carro }: { carro: any; mode?: string }) {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       {/* 4. Traduzindo o botão que abre o modal */}
-      <Button variant="outline" onClick={() => setOpen(true)} className="bg-white border-blue-600 text-blue-600 hover:bg-blue-50 cursor-pointer">
+      <Button variant="outline" onClick={() => setOpen(true)} className="bg-card border-blue-600 text-blue-600 hover:bg-blue-50 cursor-pointer">
         {t("trigger")}
       </Button>
 
-      <DialogContent className="bg-white">
+      <DialogContent className="bg-card">
         <form onSubmit={handleSave}>
           <DialogHeader>
             <DialogTitle className="text-blue-600 text-2xl">{t("title")}</DialogTitle>

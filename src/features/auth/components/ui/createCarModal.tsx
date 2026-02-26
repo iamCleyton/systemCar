@@ -60,8 +60,8 @@ export function CreateCarModal() {
 
       {isOpen && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-          <div className="bg-white p-8 rounded-xl w-[400px] shadow-2xl">
-            <h2 className="text-2xl font-bold mb-6 text-gray-800">{t("title")}</h2>
+          <div className="bg-card p-8 rounded-xl w-[400px] shadow-2xl">
+            <h2 className="text-2xl font-bold mb-6 text-blue-600">{t("title")}</h2>
             
             <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
               

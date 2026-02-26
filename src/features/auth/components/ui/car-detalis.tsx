@@ -19,7 +19,7 @@ export function CarDetails({ carro }: CarDetailsProps) {
   const locale = useLocale();
 
   return (
-    <div className="flex flex-col items-center min-h-screen bg-gray-100 py-16 px-4 w-full">
+    <div className="flex flex-col items-center min-h-screen bg-background py-16 px-4 w-full">
       <div className="w-full max-w-[1000px] flex flex-col gap-8">
         
         {/* Header */}
@@ -36,12 +36,12 @@ export function CarDetails({ carro }: CarDetailsProps) {
               <h1 className="text-4xl font-bold text-blue-600 tracking-tight">
                 {carro?.model}
               </h1>
-              <p className="text-gray-600 text-lg">{t("subtitle")}</p>
+              <p className="text-muted-foreground text-lg">{t("subtitle")}</p>
             </div>
           </div>
 
           <div className="flex flex-col items-center md:items-end gap-3 w-full md:w-auto">
-            <div className="flex flex-row">
+            <div className="flex flex-row gap-2 items-center">
               <ModeToggle />
               <LanguageToggle />
             </div>
@@ -51,7 +51,7 @@ export function CarDetails({ carro }: CarDetailsProps) {
           </div>
         </div>
 
-        <div className="bg-white p-10 rounded-xl shadow-lg border-t-8 border-t-[#003cff]">
+        <div className="bg-card p-10 rounded-xl shadow-lg border-t-8 border-t-[#003cff]">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
             <div className="space-y-8">
               <DetailItem icon={<Tag />} label={t("labels.brand")} value={carro?.brand} />
@@ -75,13 +75,13 @@ export function CarDetails({ carro }: CarDetailsProps) {
 
 function DetailItem({ icon, label, value }: { icon: React.ReactNode, label: string, value: any }) {
   return (
-    <div className="flex items-center gap-4 border-b border-gray-100 pb-4">
+    <div className="flex items-center gap-4 border-b border-border pb-4">
       <div className="bg-blue-50 p-3 rounded-lg text-blue-600">
         {icon}
       </div>
       <div>
-        <p className="text-sm text-gray-500 font-medium uppercase tracking-wider">{label}</p>
-        <p className="text-xl font-bold text-gray-800">{value || "---"}</p>
+        <p className="text-sm text-muted-foreground font-medium uppercase tracking-wider">{label}</p>
+        <p className="text-xl font-bold text-foreground">{value || "---"}</p>
       </div>
     </div>
   );

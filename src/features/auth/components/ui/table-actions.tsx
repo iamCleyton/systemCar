@@ -97,7 +97,7 @@ export function TableActions({ data, isLoading }: TableActionsProps) {
         ) : (
           carros.map((carro) => (
             <TableRow key={carro.id}>
-              <TableCell className="font-medium text-gray-900">{carro.model}</TableCell>
+              <TableCell className="font-medium text-foreground">{carro.model}</TableCell>
               <TableCell>{carro.brand}</TableCell>
               <TableCell>{carro.color}</TableCell>
               <TableCell>{carro.year}</TableCell>
@@ -115,7 +115,7 @@ export function TableActions({ data, isLoading }: TableActionsProps) {
                         <MoreHorizontal className="h-4 w-4" />
                       </Button>
                     </DropdownMenuTrigger>
-                    <DropdownMenuContent align="end" className="bg-white shadow-md border">
+                    <DropdownMenuContent align="end" className="bg-card shadow-md border">
                       <DropdownMenuItem 
                         className="cursor-pointer"
                         onClick={() => router.push(`/dashboard/cars/${carro.id}`)}
@@ -131,7 +131,7 @@ export function TableActions({ data, isLoading }: TableActionsProps) {
                     </DropdownMenuContent>
                   </DropdownMenu>
 
-                  <AlertDialogContent className="bg-white">
+                  <AlertDialogContent className="bg-card">
                     <AlertDialogHeader>
                       {/* Passando variáveis para a tradução */}
                       <AlertDialogTitle>

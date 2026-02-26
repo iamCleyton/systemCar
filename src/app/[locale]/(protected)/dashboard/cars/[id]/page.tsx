@@ -15,7 +15,7 @@ export default function CarDetailsPage() {
   if (isLoading) {
     return (
       
-     <div className="flex justify-center items-center min-h-screen py-10 text-gray-500">
+     <div className="flex justify-center items-center min-h-screen py-10 text-muted-foreground">
         <Loader2 className="h-8 w-8 animate-spin mr-2 text-blue-600" />
         Carregando Detalhes...
       </div>

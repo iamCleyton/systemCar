@@ -34,13 +34,14 @@ export default function DashboardPage() {
     filters.year
   );
 
+
   const handleApplyFilters = (newFilters: typeof filters) => {
     setFilters(newFilters);
     setPage(0); // Volta para o início ao filtrar
   };
 
   return (
-    <div className="flex flex-col items-center min-h-screen bg-gray-100 py-16 px-4 w-full">
+    <div className="flex flex-col items-center min-h-screen bg-background py-16 px-4 w-full">
       <div className="w-full max-w-[1400px] flex flex-col items-center gap-12">
         
         {/* Header */}
@@ -50,14 +51,14 @@ export default function DashboardPage() {
             <h1 className="text-4xl font-bold text-blue-600 tracking-tight">
               {t("header.title")}
             </h1>
-            <p className="text-gray-600 text-lg">
+            <p className="text-muted-foreground text-lg">
               {t("header.subtitle")}
             </p>
           </div>
 
           {/* 4. Ajuste de Layout: O toggle agora fica em uma coluna centralizada acima dos botões */}
           <div className="flex flex-col items-center md:items-end gap-3">
-            <div className="flex flex-row">
+            <div className="flex flex-row gap-2 items-center">
               <ModeToggle />
               <LanguageToggle />
             </div>
@@ -74,13 +75,13 @@ export default function DashboardPage() {
         </div>
 
         {/* Tabela - Recebe os dados do hook useCars desta página */}
-        <div className="bg-white p-8 rounded-xl w-[90%] shadow-lg border-t-8 border-t-[#003cff]">
+        <div className="bg-card p-8 rounded-xl w-[90%] shadow-lg border-t-8 border-t-[#003cff]">
           <div className="mb-8">
             {/* 5. Traduzindo os títulos da tabela */}
-            <h2 className="text-3xl font-bold text-gray-800 mb-2">
+            <h2 className="text-3xl font-bold text-foreground mb-2">
               {t("tableSection.title")}
             </h2>
-            <p className="text-gray-500">
+            <p className="text-muted-foreground">
               {t("tableSection.subtitle")}
             </p>
           </div>

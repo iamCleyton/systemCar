@@ -56,12 +56,12 @@ export function InputDemo({ onFilter }: InputDemoProps) {
   };
 
   return (
-    <div className="bg-white p-6 rounded-xl shadow-md w-[90%] border-l-8 border-l-[#003cff] flex flex-col md:flex-row gap-4 items-end">
+    <div className="bg-card p-6 rounded-xl shadow-md w-[90%] border-l-8 border-l-[#003cff] flex flex-col md:flex-row gap-4 items-end">
       
       {/* Input de Modelo */}
       <div className="flex-1 flex flex-col gap-2 w-full">
         {/* 3. Traduzindo labels e placeholders */}
-        <label className="text-sm font-bold text-gray-700">{t("labels.model")}</label>
+        <label className="text-sm font-bold text-foreground">{t("labels.model")}</label>
         <Input 
           placeholder={t("placeholders.model")}
           value={model} 
@@ -72,7 +72,7 @@ export function InputDemo({ onFilter }: InputDemoProps) {
 
       {/* Input de Marca */}
       <div className="flex-1 flex flex-col gap-2 w-full">
-        <label className="text-sm font-bold text-gray-700">{t("labels.brand")}</label>
+        <label className="text-sm font-bold text-foreground">{t("labels.brand")}</label>
         <Input 
           placeholder={t("placeholders.brand")}
           value={brand} 
@@ -83,7 +83,7 @@ export function InputDemo({ onFilter }: InputDemoProps) {
 
       {/* Input de Cor */}
       <div className="flex-1 flex flex-col gap-2 w-full">
-        <label className="text-sm font-bold text-gray-700">{t("labels.color")}</label>
+        <label className="text-sm font-bold text-foreground">{t("labels.color")}</label>
         <Input 
           placeholder={t("placeholders.color")}
           value={color} 
@@ -94,7 +94,7 @@ export function InputDemo({ onFilter }: InputDemoProps) {
 
       {/* Input de Ano */}
       <div className="flex-1 flex flex-col gap-2 w-full">
-        <label className="text-sm font-bold text-gray-700">{t("labels.year")}</label>
+        <label className="text-sm font-bold text-foreground">{t("labels.year")}</label>
         <Input 
           type="number" 
           placeholder={t("placeholders.year")}
