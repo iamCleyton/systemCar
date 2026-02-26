@@ -1,14 +1,18 @@
 import { z } from "zod";
 
-export const carSchema = z.object({
-  brand: z.string().min(1, "The brand is mandatory."),
-  model: z.string().min(1, "The model is mandatory."),
-  color: z.string().min(1, "The color is mandatory."),
-  // z.coerce.number() tenta converter o valor digitado (que no HTML é string) para número
-  year: z.coerce
-    .number({ invalid_type_error: "The year must be a valid number" })
-    .min(1886, "Invalid year (the first car was from 1886)")
-    .max(new Date().getFullYear() + 1, "The year cannot be in the distant future"),
-});
+// 1. Transformamos o schema em uma função que recebe o tradutor 't'
+export const getCarSchema = (t: any) => {
+  return z.object({
+    brand: z.string().min(1, t("brandRequired")),
+    model: z.string().min(1, t("modelRequired")),
+    color: z.string().min(1, t("colorRequired")),
+    year: z.coerce
+      .number({ invalid_type_error: t("yearInvalid") })
+      .min(1886, t("yearMin"))
+      .max(new Date().getFullYear() + 1, t("yearMax")),
+  });
+};
 
-export type CarFormData = z.infer<typeof carSchema>;
+// 2. Inferimos o tipo pegando o "formato de retorno" da função, 
+// assim você não precisa digitar os tipos duas vezes.
+export type CarFormData = z.infer<ReturnType<typeof getCarSchema>>;
