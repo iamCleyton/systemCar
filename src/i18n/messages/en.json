@@ -92,9 +92,13 @@
     "feedback": "You have been logged out successfully!"
   },
 
-  "Pagination": {
+ "Pagination": {
     "previous": "Previous",
-    "next": "Next"
+    "next": "Next",
+    "morePages": "More pages",
+    "ariaPagination": "pagination",
+    "ariaPrevious": "Go to previous page",
+    "ariaNext": "Go to next page"
   },
 
   

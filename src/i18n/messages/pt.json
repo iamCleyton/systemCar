@@ -92,10 +92,14 @@
     "logout": "Sair",
     "feedback": "Você foi desconectado com sucesso!"
   },
-
-  "Pagination": {
+  
+"Pagination": {
     "previous": "Anterior",
-    "next": "Próximo"
+    "next": "Próximo",
+    "morePages": "Mais páginas",
+    "ariaPagination": "paginação",
+    "ariaPrevious": "Ir para a página anterior",
+    "ariaNext": "Ir para a próxima página"
   },
 
   "CreateCarModal": {
