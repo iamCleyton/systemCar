@@ -18,12 +18,15 @@
     "required": "This field is required",
     "nameMin": "Name must be at least 2 characters",
     "passwordMatch": "Passwords do not match",
-    "brandRequired": "The brand is mandatory.",
-    "modelRequired": "The model is mandatory.",
-    "colorRequired": "The color is mandatory.",
-    "yearInvalid": "The year must be a valid number.",
-    "yearMin": "Invalid year (the first car was from 1886).",
-    "yearMax": "The year cannot be in the distant future."
+    "brandRequired": "The brand is required.",
+    "brandMinLength": "The brand must be at least 2 characters long.",
+    "modelRequired": "The model is required.",
+    "modelMinLength": "The model must be at least 2 characters long.",
+    "colorRequired": "The color is required.",
+    "colorMinLength": "The color must be at least 2 characters long.",
+    "yearInvalid": "Invalid year.",
+    "yearMin": "The year must be greater than 1886.",
+    "yearMax": "The year cannot be in the future."
   },
 
   "Register": {
@@ -104,7 +107,8 @@
     "morePages": "More pages",
     "ariaPagination": "pagination",
     "ariaPrevious": "Go to previous page",
-    "ariaNext": "Go to next page"
+    "ariaNext": "Go to next page",
+    "size": "Line per page"
   },
 
   

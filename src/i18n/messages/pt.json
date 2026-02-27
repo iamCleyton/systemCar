@@ -19,11 +19,14 @@
     "nameMin": "O nome deve ter pelo menos 2 caracteres",
     "passwordMatch": "As senhas não coincidem",
     "brandRequired": "A marca é obrigatória.",
+    "brandMinLength": "A marca deve ter pelo menos 2 caracteres.",
     "modelRequired": "O modelo é obrigatório.",
+    "modelMinLength": "O modelo deve ter pelo menos 2 caracteres.",
     "colorRequired": "A cor é obrigatória.",
-    "yearInvalid": "O ano deve ser um número válido.",
-    "yearMin": "Ano inválido (o primeiro carro surgiu em 1886).",
-    "yearMax": "O ano não pode ser no futuro distante."
+    "colorMinLength": "A cor deve ter pelo menos 2 caracteres.",
+    "yearInvalid": "Ano inválido.",
+    "yearMin": "O ano deve ser maior que 1886.",
+    "yearMax": "O ano não pode ser no futuro."
   },
 
 
@@ -105,7 +108,8 @@
     "morePages": "Mais páginas",
     "ariaPagination": "paginação",
     "ariaPrevious": "Ir para a página anterior",
-    "ariaNext": "Ir para a próxima página"
+    "ariaNext": "Ir para a próxima página",
+    "size": "Linhas por página"
   },
 
   "CreateCarModal": {

@@ -1,11 +1,19 @@
 import { z } from "zod";
 
-// 1. Transformamos o schema em uma função que recebe o tradutor 't'
 export const getCarSchema = (t: any) => {
   return z.object({
-    brand: z.string().min(1, t("brandRequired")),
-    model: z.string().min(1, t("modelRequired")),
-    color: z.string().min(1, t("colorRequired")),
+    brand: z.string()
+      .min(1, t("brandRequired")) // Erro se o usuário não digitar nada (0 caracteres)
+      .min(2, t("brandMinLength")), // Erro se o usuário digitar apenas 1 caractere
+
+    model: z.string()
+      .min(1, t("modelRequired"))
+      .min(2, t("modelMinLength")),
+
+    color: z.string()
+      .min(1, t("colorRequired"))
+      .min(2, t("colorMinLength")),
+
     year: z.coerce
       .number({ invalid_type_error: t("yearInvalid") })
       .min(1886, t("yearMin"))
@@ -13,6 +21,4 @@ export const getCarSchema = (t: any) => {
   });
 };
 
-// 2. Inferimos o tipo pegando o "formato de retorno" da função, 
-// assim você não precisa digitar os tipos duas vezes.
 export type CarFormData = z.infer<ReturnType<typeof getCarSchema>>;

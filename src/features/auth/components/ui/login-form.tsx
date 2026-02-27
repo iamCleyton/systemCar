@@ -67,10 +67,7 @@ export function LoginForm({
 
   return (
     <div className={cn("flex flex-col gap-6 justify-center", className)} {...props}>
-      <div className="flex justify-end items-center absolute gap-2 top-5 right-5 ">
-        <ModeToggle />
-        <LanguageToggle />
-      </div>
+      
 
       <Card className="overflow-hidden p-0">
         <CardContent className="grid p-0 md:grid-cols-2">

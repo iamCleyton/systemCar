@@ -4,9 +4,8 @@ import { useRouter } from "next/navigation";
 import { ArrowLeft, Car, Calendar, Palette, Tag } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { EditCarModal } from "@/features/auth/components/ui/edit-car-modal";
-import { LanguageToggle } from "../language-toggle";
 import { useTranslations, useLocale } from "next-intl";
-import { ModeToggle } from "./mode-toggle";
+
 
 interface CarDetailsProps {
   carro: any; 
@@ -41,35 +40,29 @@ export function CarDetails({ carro }: CarDetailsProps) {
           </div>
 
           <div className="flex flex-col items-center md:items-end gap-3 w-full md:w-auto">
-            <div className="flex flex-row gap-2 items-center">
-              <ModeToggle />
-              <LanguageToggle />
-            </div>
             <div className="flex items-center gap-4">
               <EditCarModal carro={carro} />
             </div>
           </div>
         </div>
 
-        <div className="bg-card p-10 rounded-xl shadow-lg border-t-8 border-t-[#003cff]">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-            <div className="space-y-8">
-              <DetailItem icon={<Tag />} label={t("labels.brand")} value={carro?.brand} />
-              <DetailItem icon={<Car />} label={t("labels.model")} value={carro?.model} />
-              <DetailItem icon={<Palette />} label={t("labels.color")} value={carro?.color} />
-              <DetailItem icon={<Calendar />} label={t("labels.year")} value={carro?.year} />
-              
-              {/* Comentário colocado fora das props do componente para não quebrar a sintaxe */}
-              <DetailItem 
-                icon={<Calendar />} 
-                label={t("labels.registrationDate")} 
-                value={carro?.dateCreate ? new Date(carro.dateCreate).toLocaleString(locale) : "---"} 
-              />
-            </div>
-          </div>
+        <div className="w-full bg-card p-10 rounded-xl shadow-lg border-t-8 border-t-[#003cff]">
+          {/* O Grid agora controla diretamente os DetailItems */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-8">
+          
+          <DetailItem icon={<Tag />} label={t("labels.brand")} value={carro?.brand} />
+          <DetailItem icon={<Car />} label={t("labels.model")} value={carro?.model} />
+          <DetailItem icon={<Palette />} label={t("labels.color")} value={carro?.color} />
+          <DetailItem icon={<Calendar />} label={t("labels.year")} value={carro?.year} />
+          <DetailItem 
+            icon={<Calendar />} 
+            label={t("labels.registrationDate")} 
+            value={carro?.dateCreate ? new Date(carro.dateCreate).toLocaleString(locale) : "---"} 
+          />
         </div>
-      </div>
-    </div>
+        </div>
+        </div>
+        </div>
   );
 }
 

@@ -10,6 +10,8 @@ import 'react-toastify/dist/ReactToastify.css';
 // Importações Globais e Provedores
 import "@/app/globals.css";// Certifique-se de que o caminho do CSS está correto para a sua pasta
 import { AppProviders, ThemeProvider } from "@/providers/AppProviders"; 
+import { LanguageToggle } from "@/features/auth/components/language-toggle";
+import { ModeToggle } from "@/features/auth/components/ui/mode-toggle";
 
 // Configuração das Fontes
 const geistSans = Geist({
@@ -64,6 +66,11 @@ export default async function LocaleLayout({
           <NextIntlClientProvider messages={messages}>
             {/* Seus Provedores Customizados (React Query, Auth, etc) */}
             <AppProviders>
+              <div className="flex justify-end items-center absolute gap-2  top-5 sm:top-5  right-5 md:right-26 ">
+              <ModeToggle />
+              <LanguageToggle />
+              </div>
+
               {children}
             </AppProviders>
           </NextIntlClientProvider>
