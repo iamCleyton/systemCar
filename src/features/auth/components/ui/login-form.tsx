@@ -93,7 +93,7 @@ export function LoginForm({
                 <FieldLabel htmlFor="email">{t("emailLabel")}</FieldLabel>
                 <Input
                   id="email"
-                  type="email"
+                  type="text"
                   placeholder="cleyton@example.com"
                   {...register("email")}
                 />

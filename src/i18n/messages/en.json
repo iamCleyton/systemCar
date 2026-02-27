@@ -17,7 +17,13 @@
     "passwordMin": "Password must be at least {min} characters",
     "required": "This field is required",
     "nameMin": "Name must be at least 2 characters",
-    "passwordMatch": "Passwords do not match"
+    "passwordMatch": "Passwords do not match",
+    "brandRequired": "The brand is mandatory.",
+    "modelRequired": "The model is mandatory.",
+    "colorRequired": "The color is mandatory.",
+    "yearInvalid": "The year must be a valid number.",
+    "yearMin": "Invalid year (the first car was from 1886).",
+    "yearMax": "The year cannot be in the distant future."
   },
 
   "Register": {
@@ -92,9 +98,13 @@
     "feedback": "You have been logged out successfully!"
   },
 
-  "Pagination": {
+ "Pagination": {
     "previous": "Previous",
-    "next": "Next"
+    "next": "Next",
+    "morePages": "More pages",
+    "ariaPagination": "pagination",
+    "ariaPrevious": "Go to previous page",
+    "ariaNext": "Go to next page"
   },
 
   
@@ -163,7 +173,8 @@
       "model": "Model",
       "color": "Color",
       "year": "Year of Manufacture",
-      "registrationDate": "Registration Date"
+      "registrationDate": "Registration Date",
+      "loading": "Loading details..."
     }
   }
 
